@@ -20,7 +20,7 @@ class Carousel extends AbstractDisplayer
             return '';
         }
 
-        $images = collect((array) $this->value)->filter()->map(function ($path) use ($server) {
+        $images = collect((array) $this->value)->filter()->map(function($path) use ($server) {
             if (url()->isValidUrl($path) || strpos($path, 'data:image') === 0) {
                 $image = $path;
             } elseif ($server) {

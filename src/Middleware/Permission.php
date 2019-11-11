@@ -37,7 +37,7 @@ class Permission
             return $next($request);
         }
 
-        if (!Admin::user()->allPermissions()->first(function ($permission) use ($request) {
+        if (!Admin::user()->allPermissions()->first(function($permission) use ($request) {
             return $permission->shouldPassThrough($request);
         })) {
             Checker::error();
@@ -56,7 +56,7 @@ class Permission
      */
     public function checkRoutePermission(Request $request)
     {
-        if (!$middleware = collect($request->route()->middleware())->first(function ($middleware) {
+        if (!$middleware = collect($request->route()->middleware())->first(function($middleware) {
             return Str::startsWith($middleware, $this->middlewarePrefix);
         })) {
             return false;
@@ -91,7 +91,7 @@ class Permission
 
         return collect($excepts)
             ->map('admin_base_path')
-            ->contains(function ($except) use ($request) {
+            ->contains(function($except) use ($request) {
                 if ($except !== '/') {
                     $except = trim($except, '/');
                 }

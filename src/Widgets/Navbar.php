@@ -75,7 +75,7 @@ class Navbar implements Renderable
             return '';
         }
 
-        return $this->elements[$part]->map(function ($element) {
+        return $this->elements[$part]->map(function($element) {
             if ($element instanceof Htmlable) {
                 return $element->toHtml();
             }

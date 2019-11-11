@@ -285,7 +285,7 @@ class Filter implements Renderable
      */
     public function removeFilterByID($id)
     {
-        $this->filters = array_filter($this->filters, function (AbstractFilter $filter) use ($id) {
+        $this->filters = array_filter($this->filters, function(AbstractFilter $filter) use ($id) {
             return $filter->getId() != $id;
         });
     }
@@ -299,7 +299,7 @@ class Filter implements Renderable
     {
         $inputs = Arr::dot(request()->all());
 
-        $inputs = array_filter($inputs, function ($input) {
+        $inputs = array_filter($inputs, function($input) {
             return $input !== '' && !is_null($input);
         });
 
@@ -327,7 +327,7 @@ class Filter implements Renderable
             }
         }
 
-        return tap(array_filter($conditions), function ($conditions) {
+        return tap(array_filter($conditions), function($conditions) {
             if (!empty($conditions)) {
                 $this->expand();
             }
@@ -345,9 +345,9 @@ class Filter implements Renderable
             return $inputs;
         }
 
-        $inputs = collect($inputs)->filter(function ($input, $key) {
+        $inputs = collect($inputs)->filter(function($input, $key) {
             return Str::startsWith($key, "{$this->name}_");
-        })->mapWithKeys(function ($val, $key) {
+        })->mapWithKeys(function($val, $key) {
             $key = str_replace("{$this->name}_", '', $key);
 
             return [$key => $val];
@@ -417,7 +417,7 @@ class Filter implements Renderable
      */
     public function scope($key, $label = '')
     {
-        return tap(new Scope($key, $label), function (Scope $scope) {
+        return tap(new Scope($key, $label), function(Scope $scope) {
             return $this->scopes->push($scope);
         });
     }
@@ -451,7 +451,7 @@ class Filter implements Renderable
     {
         $key = request(Scope::QUERY_NAME);
 
-        return $this->scopes->first(function ($scope) use ($key) {
+        return $this->scopes->first(function($scope) use ($key) {
             return $scope->key == $key;
         });
     }
@@ -576,9 +576,9 @@ class Filter implements Renderable
 
         $columns->push($pageKey);
 
-        $groupNames = collect($this->filters)->filter(function ($filter) {
+        $groupNames = collect($this->filters)->filter(function($filter) {
             return $filter instanceof Filter\Group;
-        })->map(function (AbstractFilter $filter) {
+        })->map(function(AbstractFilter $filter) {
             return "{$filter->getId()}_group";
         });
 

@@ -26,7 +26,7 @@ trait HasSelector
 
         call_user_func($closure, $this->selector);
 
-        $this->header(function () {
+        $this->header(function() {
             return $this->renderSelector();
         });
 
@@ -46,7 +46,7 @@ trait HasSelector
 
         $active = Selector::parseSelected();
 
-        $this->selector->getSelectors()->each(function ($selector, $column) use ($active) {
+        $this->selector->getSelectors()->each(function($selector, $column) use ($active) {
             if (!array_key_exists($column, $active)) {
                 return;
             }

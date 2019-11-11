@@ -23,7 +23,7 @@ class Table extends AbstractDisplayer
             $columns = $titles;
         }
 
-        $data = array_map(function ($item) use ($columns) {
+        $data = array_map(function($item) use ($columns) {
             $sorted = [];
 
             $arr = Arr::only($item, $columns);

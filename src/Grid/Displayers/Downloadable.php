@@ -13,7 +13,7 @@ class Downloadable extends AbstractDisplayer
             $this->value = $this->value->toArray();
         }
 
-        return collect((array) $this->value)->filter()->map(function ($value) use ($server) {
+        return collect((array) $this->value)->filter()->map(function($value) use ($server) {
             if (empty($value)) {
                 return '';
             }

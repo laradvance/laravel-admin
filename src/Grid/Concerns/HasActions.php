@@ -88,7 +88,7 @@ trait HasActions
      */
     public function batchActions(Closure $closure)
     {
-        $this->tools(function (Grid\Tools $tools) use ($closure) {
+        $this->tools(function(Grid\Tools $tools) use ($closure) {
             $tools->batch($closure);
         });
 

@@ -68,9 +68,9 @@ class Table extends HasMany
 
         $prepare = $form->prepare($input);
 
-        return collect($prepare)->reject(function ($item) {
+        return collect($prepare)->reject(function($item) {
             return $item[NestedForm::REMOVE_FLAG_NAME] == 1;
-        })->map(function ($item) {
+        })->map(function($item) {
             unset($item[NestedForm::REMOVE_FLAG_NAME]);
 
             return $item;

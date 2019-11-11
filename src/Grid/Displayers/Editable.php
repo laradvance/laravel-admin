@@ -213,7 +213,7 @@ STR;
             $attributes = array_merge($attributes, $this->attributes);
         }
 
-        $attributes = collect($attributes)->map(function ($attribute, $name) {
+        $attributes = collect($attributes)->map(function($attribute, $name) {
             return "$name='$attribute'";
         })->implode(' ');
 

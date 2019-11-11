@@ -41,7 +41,7 @@ trait HasQuickSearch
             $this->search = $search;
         }
 
-        return tap(new Tools\QuickSearch(), function ($search) {
+        return tap(new Tools\QuickSearch(), function($search) {
             $this->tools->append($search);
         });
     }
@@ -125,14 +125,14 @@ trait HasQuickSearch
      */
     protected function parseQueryBindings(array $queries)
     {
-        $columnMap = $this->columns->mapWithKeys(function (Column $column) {
+        $columnMap = $this->columns->mapWithKeys(function(Column $column) {
             $label = $column->getLabel();
             $name = $column->getName();
 
             return [$label => $name, $name => $name];
         });
 
-        return collect($queries)->map(function ($query) use ($columnMap) {
+        return collect($queries)->map(function($query) use ($columnMap) {
             $segments = explode(':', $query, 2);
 
             if (count($segments) != 2) {

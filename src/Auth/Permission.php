@@ -21,7 +21,7 @@ class Permission
         }
 
         if (is_array($permission)) {
-            collect($permission)->each(function ($permission) {
+            collect($permission)->each(function($permission) {
                 call_user_func([self::class, 'check'], $permission);
             });
 

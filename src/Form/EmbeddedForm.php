@@ -162,7 +162,7 @@ class EmbeddedForm
      */
     protected function prepareValue($key, $record)
     {
-        $field = $this->fields->first(function (Field $field) use ($key) {
+        $field = $this->fields->first(function(Field $field) use ($key) {
             return in_array($key, (array) $field->column());
         });
 
@@ -185,7 +185,7 @@ class EmbeddedForm
         if (array_key_exists($key, $this->original)) {
             $values = $this->original[$key];
 
-            $this->fields->each(function (Field $field) use ($values) {
+            $this->fields->each(function(Field $field) use ($values) {
                 $field->setOriginal($values);
             });
         }
@@ -200,7 +200,7 @@ class EmbeddedForm
      */
     public function fill(array $data)
     {
-        $this->fields->each(function (Field $field) use ($data) {
+        $this->fields->each(function(Field $field) use ($data) {
             $field->fill($data);
         });
 

@@ -293,7 +293,7 @@ HTML;
      */
     protected function renderCustomTools($tools)
     {
-        return $tools->map(function ($tool) {
+        return $tools->map(function($tool) {
             if ($tool instanceof Renderable) {
                 return $tool->render();
             }

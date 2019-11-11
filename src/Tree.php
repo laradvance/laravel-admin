@@ -113,7 +113,7 @@ class Tree implements Renderable
     protected function initBranchCallback()
     {
         if (is_null($this->branchCallback)) {
-            $this->branchCallback = function ($branch) {
+            $this->branchCallback = function($branch) {
                 $key = $branch[$this->model->getKeyName()];
                 $title = $branch[$this->model->getTitleColumn()];
 

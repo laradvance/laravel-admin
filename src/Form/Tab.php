@@ -70,7 +70,7 @@ class Tab
         $all = $fields->toArray();
 
         foreach ($this->form->rows as $row) {
-            $rowFields = array_map(function ($field) {
+            $rowFields = array_map(function($field) {
                 return $field['element'];
             }, $row->getFields());
 
@@ -104,7 +104,7 @@ class Tab
     public function getTabs()
     {
         // If there is no active tab, then active the first.
-        if ($this->tabs->filter(function ($tab) {
+        if ($this->tabs->filter(function($tab) {
             return $tab['active'];
         })->isEmpty()) {
             $first = $this->tabs->first();

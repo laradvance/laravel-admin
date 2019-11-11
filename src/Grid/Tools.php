@@ -89,7 +89,7 @@ class Tools implements Renderable
      */
     public function disableFilterButton(bool $disable = true)
     {
-        $this->tools = $this->tools->map(function ($tool) use ($disable) {
+        $this->tools = $this->tools->map(function($tool) use ($disable) {
             if ($tool instanceof FilterButton) {
                 return $tool->disable($disable);
             }
@@ -117,7 +117,7 @@ class Tools implements Renderable
      */
     public function disableBatchActions(bool $disable = true)
     {
-        $this->tools = $this->tools->map(function ($tool) use ($disable) {
+        $this->tools = $this->tools->map(function($tool) use ($disable) {
             if ($tool instanceof BatchActions) {
                 return $tool->disable($disable);
             }
@@ -131,7 +131,7 @@ class Tools implements Renderable
      */
     public function batch(\Closure $closure)
     {
-        call_user_func($closure, $this->tools->first(function ($tool) {
+        call_user_func($closure, $this->tools->first(function($tool) {
             return $tool instanceof BatchActions;
         }));
     }
@@ -143,7 +143,7 @@ class Tools implements Renderable
      */
     public function render()
     {
-        return $this->tools->map(function ($tool) {
+        return $this->tools->map(function($tool) {
             if ($tool instanceof AbstractTool) {
                 if (!$tool->allowed()) {
                     return '';

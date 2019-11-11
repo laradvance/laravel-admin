@@ -32,7 +32,7 @@ class ResetPasswordCommand extends Command
         askForUserName:
         $username = $this->askWithCompletion('Please enter a username who needs to reset his password', $users->pluck('username')->toArray());
 
-        $user = $users->first(function ($user) use ($username) {
+        $user = $users->first(function($user) use ($username) {
             return $user->username == $username;
         });
 

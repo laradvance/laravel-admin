@@ -94,7 +94,7 @@ class MinifyCommand extends Command
     protected function minifyCSS()
     {
         $css = collect(array_merge(Admin::$css, Admin::baseCss()))
-            ->unique()->map(function ($css) {
+            ->unique()->map(function($css) {
                 if (url()->isValidUrl($css)) {
                     $this->assets['css'][] = $css;
 
@@ -124,7 +124,7 @@ class MinifyCommand extends Command
     protected function minifyJS()
     {
         $js = collect(array_merge(Admin::$js, Admin::baseJs()))
-            ->unique()->map(function ($js) {
+            ->unique()->map(function($js) {
                 if (url()->isValidUrl($js)) {
                     $this->assets['js'][] = $js;
 
@@ -153,7 +153,7 @@ class MinifyCommand extends Command
 
     protected function generateManifest()
     {
-        $min = collect(Admin::$min)->mapWithKeys(function ($path, $type) {
+        $min = collect(Admin::$min)->mapWithKeys(function($path, $type) {
             return [$type => sprintf('%s?id=%s', $path, md5(uniqid()))];
         });
 

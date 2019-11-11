@@ -46,7 +46,7 @@ class SwitchGroup extends AbstractDisplayer
         if ($keys->isEmpty()) {
             $key = $name;
         } else {
-            $key = $keys->shift().$keys->reduce(function ($carry, $val) {
+            $key = $keys->shift().$keys->reduce(function($carry, $val) {
                 return $carry."[$val]";
             });
         }

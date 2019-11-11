@@ -27,14 +27,14 @@ class LogController extends AdminController
 
         $grid->column('id', 'ID')->sortable();
         $grid->column('user.name', 'User');
-        $grid->column('method')->display(function ($method) {
+        $grid->column('method')->display(function($method) {
             $color = Arr::get(OperationLog::$methodColors, $method, 'grey');
 
             return "<span class=\"badge bg-$color\">$method</span>";
         });
         $grid->column('path')->label('info');
         $grid->column('ip')->label('primary');
-        $grid->column('input')->display(function ($input) {
+        $grid->column('input')->display(function($input) {
             $input = json_decode($input, true);
             $input = Arr::except($input, ['_pjax', '_token', '_method', '_previous_']);
             if (empty($input)) {
@@ -46,14 +46,14 @@ class LogController extends AdminController
 
         $grid->column('created_at', trans('admin.created_at'));
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
+        $grid->actions(function(Grid\Displayers\Actions $actions) {
             $actions->disableEdit();
             $actions->disableView();
         });
 
         $grid->disableCreateButton();
 
-        $grid->filter(function (Grid\Filter $filter) {
+        $grid->filter(function(Grid\Filter $filter) {
             $userModel = config('admin.database.users_model');
 
             $filter->equal('user_id', 'User')->select($userModel::all()->pluck('name', 'id'));

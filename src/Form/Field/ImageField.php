@@ -170,7 +170,7 @@ trait ImageField
 
             $action = $size[2] ?? 'resize';
             // Resize image with aspect ratio
-            $image->$action($size[0], $size[1], function (Constraint $constraint) {
+            $image->$action($size[0], $size[1], function(Constraint $constraint) {
                 $constraint->aspectRatio();
             })->resizeCanvas($size[0], $size[1], 'center', false, '#ffffff');
 

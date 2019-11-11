@@ -241,7 +241,7 @@ class NestedForm
             $values = $this->original[$key];
         }
 
-        $this->fields->each(function (Field $field) use ($values) {
+        $this->fields->each(function(Field $field) use ($values) {
             $field->setOriginal($values);
         });
     }

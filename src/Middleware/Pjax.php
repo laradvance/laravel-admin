@@ -47,7 +47,7 @@ class Pjax
      */
     public static function respond(Response $response)
     {
-        $next = function () use ($response) {
+        $next = function() use ($response) {
             return $response;
         };
 
@@ -139,7 +139,7 @@ class Pjax
      */
     protected function decodeUtf8HtmlEntities($html)
     {
-        return preg_replace_callback('/(&#[0-9]+;)/', function ($html) {
+        return preg_replace_callback('/(&#[0-9]+;)/', function($html) {
             return mb_convert_encoding($html[1], 'UTF-8', 'HTML-ENTITIES');
         }, $html);
     }

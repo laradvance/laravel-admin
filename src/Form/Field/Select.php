@@ -221,7 +221,7 @@ EOT;
             throw new \InvalidArgumentException("[$model] must be a valid model class");
         }
 
-        $this->options = function ($value) use ($model, $idField, $textField) {
+        $this->options = function($value) use ($model, $idField, $textField) {
             if (empty($value)) {
                 return [];
             }

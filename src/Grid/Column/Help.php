@@ -34,7 +34,7 @@ class Help implements Renderable
             'title'     => $this->message,
         ];
 
-        $data = collect($data)->map(function ($val, $key) {
+        $data = collect($data)->map(function($val, $key) {
             return "data-{$key}=\"{$val}\"";
         })->implode(' ');
 

@@ -55,7 +55,7 @@ class Tools implements Renderable
      */
     public function render()
     {
-        return $this->tools->map(function ($tool) {
+        return $this->tools->map(function($tool) {
             if ($tool instanceof Renderable) {
                 return $tool->render();
             }

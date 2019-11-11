@@ -36,14 +36,14 @@ class RoleController extends AdminController
         $grid->column('created_at', trans('admin.created_at'));
         $grid->column('updated_at', trans('admin.updated_at'));
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
+        $grid->actions(function(Grid\Displayers\Actions $actions) {
             if ($actions->row->slug == 'administrator') {
                 $actions->disableDelete();
             }
         });
 
-        $grid->tools(function (Grid\Tools $tools) {
-            $tools->batch(function (Grid\Tools\BatchActions $actions) {
+        $grid->tools(function(Grid\Tools $tools) {
+            $tools->batch(function(Grid\Tools\BatchActions $actions) {
                 $actions->disableDelete();
             });
         });
@@ -67,7 +67,7 @@ class RoleController extends AdminController
         $show->field('id', 'ID');
         $show->field('slug', trans('admin.slug'));
         $show->field('name', trans('admin.name'));
-        $show->field('permissions', trans('admin.permissions'))->as(function ($permission) {
+        $show->field('permissions', trans('admin.permissions'))->as(function($permission) {
             return $permission->pluck('name');
         })->label();
         $show->field('created_at', trans('admin.created_at'));

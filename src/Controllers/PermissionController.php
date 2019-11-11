@@ -32,8 +32,8 @@ class PermissionController extends AdminController
         $grid->column('slug', trans('admin.slug'));
         $grid->column('name', trans('admin.name'));
 
-        $grid->column('http_path', trans('admin.route'))->display(function ($path) {
-            return collect(explode("\n", $path))->map(function ($path) {
+        $grid->column('http_path', trans('admin.route'))->display(function($path) {
+            return collect(explode("\n", $path))->map(function($path) {
                 $method = $this->http_method ?: ['ANY'];
 
                 if (Str::contains($path, ':')) {
@@ -41,9 +41,9 @@ class PermissionController extends AdminController
                     $method = explode(',', $method);
                 }
 
-                $method = collect($method)->map(function ($name) {
+                $method = collect($method)->map(function($name) {
                     return strtoupper($name);
-                })->map(function ($name) {
+                })->map(function($name) {
                     return "<span class='label label-primary'>{$name}</span>";
                 })->implode('&nbsp;');
 
@@ -58,8 +58,8 @@ class PermissionController extends AdminController
         $grid->column('created_at', trans('admin.created_at'));
         $grid->column('updated_at', trans('admin.updated_at'));
 
-        $grid->tools(function (Grid\Tools $tools) {
-            $tools->batch(function (Grid\Tools\BatchActions $actions) {
+        $grid->tools(function(Grid\Tools $tools) {
+            $tools->batch(function(Grid\Tools\BatchActions $actions) {
                 $actions->disableDelete();
             });
         });
@@ -84,8 +84,8 @@ class PermissionController extends AdminController
         $show->field('slug', trans('admin.slug'));
         $show->field('name', trans('admin.name'));
 
-        $show->field('http_path', trans('admin.route'))->unescape()->as(function ($path) {
-            return collect(explode("\r\n", $path))->map(function ($path) {
+        $show->field('http_path', trans('admin.route'))->unescape()->as(function($path) {
+            return collect(explode("\r\n", $path))->map(function($path) {
                 $method = $this->http_method ?: ['ANY'];
 
                 if (Str::contains($path, ':')) {
@@ -93,9 +93,9 @@ class PermissionController extends AdminController
                     $method = explode(',', $method);
                 }
 
-                $method = collect($method)->map(function ($name) {
+                $method = collect($method)->map(function($name) {
                     return strtoupper($name);
-                })->map(function ($name) {
+                })->map(function($name) {
                     return "<span class='label label-primary'>{$name}</span>";
                 })->implode('&nbsp;');
 

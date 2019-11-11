@@ -191,7 +191,7 @@ class Field implements Renderable
      */
     public function using(array $values, $default = null)
     {
-        return $this->as(function ($value) use ($values, $default) {
+        return $this->as(function($value) use ($values, $default) {
             if (is_null($value)) {
                 return $default;
             }
@@ -211,8 +211,8 @@ class Field implements Renderable
      */
     public function image($server = '', $width = 200, $height = 200)
     {
-        return $this->unescape()->as(function ($images) use ($server, $width, $height) {
-            return collect($images)->map(function ($path) use ($server, $width, $height) {
+        return $this->unescape()->as(function($images) use ($server, $width, $height) {
+            return collect($images)->map(function($path) use ($server, $width, $height) {
                 if (empty($path)) {
                     return '';
                 }
@@ -247,8 +247,8 @@ class Field implements Renderable
      */
     public function carousel($width = 300, $height = 200, $server = '')
     {
-        return $this->unescape()->as(function ($images) use ($server, $width, $height) {
-            $items = collect($images)->map(function ($path) use ($server, $width, $height) {
+        return $this->unescape()->as(function($images) use ($server, $width, $height) {
+            $items = collect($images)->map(function($path) use ($server, $width, $height) {
                 if (empty($path)) {
                     return '';
                 }
@@ -288,7 +288,7 @@ class Field implements Renderable
     {
         $field = $this;
 
-        return $this->unescape()->as(function ($path) use ($server, $download, $field) {
+        return $this->unescape()->as(function($path) use ($server, $download, $field) {
             $name = basename($path);
 
             $field->border = false;
@@ -342,7 +342,7 @@ HTML;
      */
     public function link($href = '', $target = '_blank')
     {
-        return $this->unescape()->as(function ($link) use ($href, $target) {
+        return $this->unescape()->as(function($link) use ($href, $target) {
             $href = $href ?: $link;
 
             return "<a href='$href' target='{$target}'>{$link}</a>";
@@ -358,12 +358,12 @@ HTML;
      */
     public function label($style = 'success')
     {
-        return $this->unescape()->as(function ($value) use ($style) {
+        return $this->unescape()->as(function($value) use ($style) {
             if ($value instanceof Arrayable) {
                 $value = $value->toArray();
             }
 
-            return collect((array) $value)->map(function ($name) use ($style) {
+            return collect((array) $value)->map(function($name) use ($style) {
                 return "<span class='label label-{$style}'>$name</span>";
             })->implode('&nbsp;');
         });
@@ -378,12 +378,12 @@ HTML;
      */
     public function badge($style = 'blue')
     {
-        return $this->unescape()->as(function ($value) use ($style) {
+        return $this->unescape()->as(function($value) use ($style) {
             if ($value instanceof Arrayable) {
                 $value = $value->toArray();
             }
 
-            return collect((array) $value)->map(function ($name) use ($style) {
+            return collect((array) $value)->map(function($name) use ($style) {
                 return "<span class='badge bg-{$style}'>$name</span>";
             })->implode('&nbsp;');
         });
@@ -398,7 +398,7 @@ HTML;
     {
         $field = $this;
 
-        return $this->unescape()->as(function ($value) use ($field) {
+        return $this->unescape()->as(function($value) use ($field) {
             $content = json_decode($value, true);
 
             if (json_last_error() == 0) {
@@ -418,7 +418,7 @@ HTML;
      */
     public function filesize()
     {
-        return $this->as(function ($value) {
+        return $this->as(function($value) {
             return file_size($value);
         });
     }
@@ -557,7 +557,7 @@ HTML;
 
         $field = $this;
 
-        return $this->as(function ($value) use ($extend, $field, $arguments) {
+        return $this->as(function($value) use ($extend, $field, $arguments) {
             if (!$extend->border) {
                 $field->border = false;
             }
@@ -616,7 +616,7 @@ HTML;
     public function render()
     {
         if ($this->showAs->isNotEmpty()) {
-            $this->showAs->each(function ($callable) {
+            $this->showAs->each(function($callable) {
                 $this->value = $callable->call(
                     $this->parent->getModel(),
                     $this->value

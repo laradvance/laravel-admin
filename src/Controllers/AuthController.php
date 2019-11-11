@@ -95,7 +95,7 @@ class AuthController extends Controller
     {
         $form = $this->settingForm();
         $form->tools(
-            function (Form\Tools $tools) {
+            function(Form\Tools $tools) {
                 $tools->disableList();
                 $tools->disableDelete();
                 $tools->disableView();
@@ -133,7 +133,7 @@ class AuthController extends Controller
         $form->image('avatar', trans('admin.avatar'));
         $form->password('password', trans('admin.password'))->rules('confirmed|required');
         $form->password('password_confirmation', trans('admin.password_confirmation'))->rules('required')
-            ->default(function ($form) {
+            ->default(function($form) {
                 return $form->model()->password;
             });
 
@@ -141,13 +141,13 @@ class AuthController extends Controller
 
         $form->ignore(['password_confirmation']);
 
-        $form->saving(function (Form $form) {
+        $form->saving(function(Form $form) {
             if ($form->password && $form->model()->password != $form->password) {
                 $form->password = bcrypt($form->password);
             }
         });
 
-        $form->saved(function () {
+        $form->saved(function() {
             admin_toastr(trans('admin.update_succeeded'));
 
             return redirect(admin_url('auth/setting'));

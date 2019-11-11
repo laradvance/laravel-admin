@@ -76,7 +76,7 @@ SCRIPT;
     {
         $value = $this->getFilterValue([]);
 
-        $lists = collect($this->options)->map(function ($label, $key) use ($value) {
+        $lists = collect($this->options)->map(function($label, $key) use ($value) {
             $checked = in_array($key, $value) ? 'checked' : '';
 
             return <<<HTML

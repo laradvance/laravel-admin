@@ -71,7 +71,7 @@ class Paginator extends AbstractTool
             'total' => $this->paginator->total(),
         ];
 
-        $parameters = collect($parameters)->flatMap(function ($parameter, $key) {
+        $parameters = collect($parameters)->flatMap(function($parameter, $key) {
             return [$key => "<b>$parameter</b>"];
         });
 

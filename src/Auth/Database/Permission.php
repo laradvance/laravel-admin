@@ -66,7 +66,7 @@ class Permission extends Model
 
         $method = $this->http_method;
 
-        $matches = array_map(function ($path) use ($method) {
+        $matches = array_map(function($path) use ($method) {
             $path = trim(config('admin.route.prefix'), '/').$path;
 
             if (Str::contains($path, ':')) {
@@ -118,7 +118,7 @@ class Permission extends Model
             return false;
         }
 
-        $method = collect($match['method'])->filter()->map(function ($method) {
+        $method = collect($match['method'])->filter()->map(function($method) {
             return strtoupper($method);
         });
 
@@ -158,7 +158,7 @@ class Permission extends Model
     {
         parent::boot();
 
-        static::deleting(function ($model) {
+        static::deleting(function($model) {
             $model->roles()->detach();
         });
     }

@@ -115,7 +115,7 @@ trait HasHeader
      */
     public function renderHeader()
     {
-        return collect($this->headers)->map(function ($item) {
+        return collect($this->headers)->map(function($item) {
             if ($item instanceof Renderable) {
                 return $item->render();
             }

@@ -197,7 +197,7 @@ trait ModelTree
     {
         static::$branchOrder = array_flip(Arr::flatten($order));
 
-        static::$branchOrder = array_map(function ($item) {
+        static::$branchOrder = array_map(function($item) {
             return ++$item;
         }, static::$branchOrder);
     }
@@ -298,7 +298,7 @@ trait ModelTree
     {
         parent::boot();
 
-        static::saving(function (Model $branch) {
+        static::saving(function(Model $branch) {
             $parentColumn = $branch->getParentColumn();
 
             if (Request::has($parentColumn) && Request::input($parentColumn) == $branch->getKey()) {

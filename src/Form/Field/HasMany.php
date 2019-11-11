@@ -687,7 +687,7 @@ EOT;
         }
 
         /* Build row elements */
-        $template = array_reduce($fields, function ($all, $field) {
+        $template = array_reduce($fields, function($all, $field) {
             $all .= "<td>{$field}</td>";
 
             return $all;

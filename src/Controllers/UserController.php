@@ -34,14 +34,14 @@ class UserController extends AdminController
         $grid->column('created_at', trans('admin.created_at'));
         $grid->column('updated_at', trans('admin.updated_at'));
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
+        $grid->actions(function(Grid\Displayers\Actions $actions) {
             if ($actions->getKey() == 1) {
                 $actions->disableDelete();
             }
         });
 
-        $grid->tools(function (Grid\Tools $tools) {
-            $tools->batch(function (Grid\Tools\BatchActions $actions) {
+        $grid->tools(function(Grid\Tools $tools) {
+            $tools->batch(function(Grid\Tools\BatchActions $actions) {
                 $actions->disableDelete();
             });
         });
@@ -65,15 +65,15 @@ class UserController extends AdminController
         $show->field('id', 'ID');
         $show->field('username', trans('admin.username'));
         $show->field('name', trans('admin.name'));
-        $show->field('roles', trans('admin.roles'))->as(function ($roles) {
+        $show->field('roles', trans('admin.roles'))->as(function($roles) {
             return $roles->pluck('name');
         })->label();
-        $show->field('permissions', trans('admin.permissions'))->as(function ($permission) {
+        $show->field('permissions', trans('admin.permissions'))->as(function($permission) {
             return $permission->pluck('name');
         })->label();
         $show->field('created_at', trans('admin.created_at'));
         $show->field('updated_at', trans('admin.updated_at'));
-        $show->panel()->tools(function ($tools) use ($id) {
+        $show->panel()->tools(function($tools) use ($id) {
             if ($id == 1) {
                 $tools->disableDelete();
             }
@@ -107,7 +107,7 @@ class UserController extends AdminController
         $form->image('avatar', trans('admin.avatar'));
         $form->password('password', trans('admin.password'))->rules('required|confirmed');
         $form->password('password_confirmation', trans('admin.password_confirmation'))->rules('required')
-            ->default(function ($form) {
+            ->default(function($form) {
                 return $form->model()->password;
             });
 
@@ -119,7 +119,7 @@ class UserController extends AdminController
         $form->display('created_at', trans('admin.created_at'));
         $form->display('updated_at', trans('admin.updated_at'));
 
-        $form->saving(function (Form $form) {
+        $form->saving(function(Form $form) {
             if ($form->password && $form->model()->password != $form->password) {
                 $form->password = bcrypt($form->password);
             }

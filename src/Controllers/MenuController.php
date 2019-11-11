@@ -26,10 +26,10 @@ class MenuController extends Controller
         return $content
             ->title(trans('admin.menu'))
             ->description(trans('admin.list'))
-            ->row(function (Row $row) {
+            ->row(function(Row $row) {
                 $row->column(6, $this->treeView()->render());
 
-                $row->column(6, function (Column $column) {
+                $row->column(6, function(Column $column) {
                     $form = new \Encore\Admin\Widgets\Form();
                     $form->action(admin_url('auth/menu'));
 
@@ -71,10 +71,10 @@ class MenuController extends Controller
     {
         $menuModel = config('admin.database.menu_model');
 
-        return $menuModel::tree(function (Tree $tree) {
+        return $menuModel::tree(function(Tree $tree) {
             $tree->disableCreate();
 
-            $tree->branch(function ($branch) {
+            $tree->branch(function($branch) {
                 $payload = "<i class='fa {$branch['icon']}'></i>&nbsp;<strong>{$branch['title']}</strong>";
 
                 if (!isset($branch['children'])) {

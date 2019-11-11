@@ -78,7 +78,7 @@ class FixColumns
     {
         $this->grid->setView($this->view);
 
-        return function (Grid $grid) {
+        return function(Grid $grid) {
             if ($this->head > 0) {
                 $this->left = $grid->visibleColumns()->slice(0, $this->head);
             }

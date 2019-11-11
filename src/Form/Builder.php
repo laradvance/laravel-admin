@@ -336,7 +336,7 @@ class Builder
      */
     public function field($name)
     {
-        return $this->fields()->first(function (Field $field) use ($name) {
+        return $this->fields()->first(function(Field $field) use ($name) {
             return $field->column() === $name;
         });
     }
@@ -535,7 +535,7 @@ class Builder
 
         $this->form->getLayout()->removeReservedFields($reservedColumns);
 
-        $this->fields = $this->fields()->reject(function (Field $field) use ($reservedColumns) {
+        $this->fields = $this->fields()->reject(function(Field $field) use ($reservedColumns) {
             return in_array($field->column(), $reservedColumns, true);
         });
     }

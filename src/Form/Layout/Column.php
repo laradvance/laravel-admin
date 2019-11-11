@@ -48,7 +48,7 @@ class Column
      */
     public function removeFields($fields)
     {
-        $this->fields = $this->fields->reject(function (Field $field) use ($fields) {
+        $this->fields = $this->fields->reject(function(Field $field) use ($fields) {
             return in_array($field->column(), $fields);
         });
     }

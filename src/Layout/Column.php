@@ -112,7 +112,7 @@ class Column implements Buildable
     protected function startColumn()
     {
         // get class name using width array
-        $classnName = collect($this->width)->map(function ($value, $key) {
+        $classnName = collect($this->width)->map(function($value, $key) {
             return "col-$key-$value";
         })->implode(' ');
 

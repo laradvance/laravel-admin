@@ -358,7 +358,7 @@ class Grid
         $column = new Column($column, $label);
         $column->setGrid($this);
 
-        return tap($column, function ($value) {
+        return tap($column, function($value) {
             $this->columns->push($value);
         });
     }
@@ -422,7 +422,7 @@ class Grid
         $column = new Column($column, $label);
         $column->setGrid($this);
 
-        return tap($column, function ($value) {
+        return tap($column, function($value) {
             $this->columns->prepend($value);
         });
     }
@@ -588,7 +588,7 @@ class Grid
 
         $data = $collection->toArray();
 
-        $this->columns->map(function (Column $column) use (&$data) {
+        $this->columns->map(function(Column $column) use (&$data) {
             $data = $column->fill($data);
 
             $this->columnNames[] = $column->getName();
@@ -608,7 +608,7 @@ class Grid
      */
     protected function buildRows(array $data)
     {
-        $this->rows = collect($data)->map(function ($model, $number) {
+        $this->rows = collect($data)->map(function($model, $number) {
             return new Row($number, $model, $this->keyName);
         });
 

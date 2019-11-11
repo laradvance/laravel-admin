@@ -474,7 +474,7 @@ abstract class AbstractFilter
 
         list($relation, $args[0]) = explode('.', $this->column);
 
-        return ['whereHas' => [$relation, function ($relation) use ($args) {
+        return ['whereHas' => [$relation, function($relation) use ($args) {
             call_user_func_array([$relation, $this->query], $args);
         }]];
     }

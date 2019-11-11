@@ -376,7 +376,7 @@ class Form implements Renderable
                 return $ret;
             }
 
-            collect(explode(',', $id))->filter()->each(function ($id) {
+            collect(explode(',', $id))->filter()->each(function($id) {
                 $builder = $this->model()->newQuery();
 
                 if ($this->isSoftDeletes) {
@@ -429,9 +429,9 @@ class Form implements Renderable
 
         $data = $model->toArray();
 
-        $this->builder->fields()->filter(function ($field) {
+        $this->builder->fields()->filter(function($field) {
             return $field instanceof Field\File;
-        })->each(function (Field\File $file) use ($data) {
+        })->each(function(Field\File $file) use ($data) {
             $file->setOriginal($data);
 
             $file->destroy();
@@ -456,7 +456,7 @@ class Form implements Renderable
             return $response;
         }
 
-        DB::transaction(function () {
+        DB::transaction(function() {
             $inserts = $this->prepareInsert($this->updates);
 
             foreach ($inserts as $column => $value) {
@@ -626,7 +626,7 @@ class Form implements Renderable
             return $response;
         }
 
-        DB::transaction(function () {
+        DB::transaction(function() {
             $updates = $this->prepareUpdate($this->updates);
 
             foreach ($updates as $column => $value) {
@@ -1106,7 +1106,7 @@ class Form implements Renderable
     protected function getFieldByColumn($column)
     {
         return $this->builder->fields()->first(
-            function (Field $field) use ($column) {
+            function(Field $field) use ($column) {
                 if (is_array($field->column())) {
                     return in_array($column, $field->column());
                 }
@@ -1127,7 +1127,7 @@ class Form implements Renderable
 
         $values = $this->model->toArray();
 
-        $this->builder->fields()->each(function (Field $field) use ($values) {
+        $this->builder->fields()->each(function(Field $field) use ($values) {
             $field->setOriginal($values);
         });
     }
@@ -1157,7 +1157,7 @@ class Form implements Renderable
 
         $data = $this->model->toArray();
 
-        $this->builder->fields()->each(function (Field $field) use ($data) {
+        $this->builder->fields()->each(function(Field $field) use ($data) {
             if (!in_array($field->column(), $this->ignored, true)) {
                 $field->fill($data);
             }
@@ -1301,7 +1301,7 @@ class Form implements Renderable
      */
     public function setWidth($fieldWidth = 8, $labelWidth = 2): self
     {
-        $this->builder()->fields()->each(function ($field) use ($fieldWidth, $labelWidth) {
+        $this->builder()->fields()->each(function($field) use ($fieldWidth, $labelWidth) {
             /* @var Field $field  */
             $field->setWidth($fieldWidth, $labelWidth);
         });

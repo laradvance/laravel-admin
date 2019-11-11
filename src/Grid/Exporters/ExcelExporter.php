@@ -48,7 +48,7 @@ abstract class ExcelExporter extends AbstractExporter implements FromQuery, With
 
             $eagerLoads = array_keys($this->getQuery()->getEagerLoads());
 
-            $columns = collect($columns)->reject(function ($column) use ($eagerLoads) {
+            $columns = collect($columns)->reject(function($column) use ($eagerLoads) {
                 return Str::contains($column, '.') || in_array($column, $eagerLoads);
             });
 

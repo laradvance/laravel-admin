@@ -347,9 +347,9 @@ class Model
 
         $this->setSort();
 
-        $this->queries->reject(function ($query) {
+        $this->queries->reject(function($query) {
             return $query['method'] == 'paginate';
-        })->each(function ($query) {
+        })->each(function($query) {
             $this->model = $this->model->{$query['method']}(...$query['arguments']);
         });
 
@@ -400,7 +400,7 @@ class Model
         $this->setSort();
         $this->setPaginate();
 
-        $this->queries->unique()->each(function ($query) {
+        $this->queries->unique()->each(function($query) {
             $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);
         });
 
@@ -430,9 +430,9 @@ class Model
 
         $queryBuilder = $this->originalModel;
 
-        $this->queries->reject(function ($query) {
+        $this->queries->reject(function($query) {
             return in_array($query['method'], ['get', 'paginate']);
-        })->each(function ($query) use (&$queryBuilder) {
+        })->each(function($query) use (&$queryBuilder) {
             $queryBuilder = $queryBuilder->{$query['method']}(...$query['arguments']);
         });
 
@@ -466,7 +466,7 @@ class Model
     {
         $paginate = $this->findQueryByMethod('paginate');
 
-        $this->queries = $this->queries->reject(function ($query) {
+        $this->queries = $this->queries->reject(function($query) {
             return $query['method'] == 'paginate';
         });
 
@@ -524,7 +524,7 @@ class Model
      */
     protected function findQueryByMethod($method)
     {
-        return $this->queries->first(function ($query) use ($method) {
+        return $this->queries->first(function($query) use ($method) {
             return $query['method'] == $method;
         });
     }
@@ -579,7 +579,7 @@ class Model
     {
         list($relationName, $relationColumn) = explode('.', $column);
 
-        if ($this->queries->contains(function ($query) use ($relationName) {
+        if ($this->queries->contains(function($query) use ($relationName) {
             return $query['method'] == 'with' && in_array($relationName, $query['arguments']);
         })) {
             $relation = $this->model->$relationName();
@@ -613,7 +613,7 @@ class Model
      */
     public function resetOrderBy()
     {
-        $this->queries = $this->queries->reject(function ($query) {
+        $this->queries = $this->queries->reject(function($query) {
             return $query['method'] == 'orderBy' || $query['method'] == 'orderByDesc';
         });
     }

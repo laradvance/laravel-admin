@@ -488,7 +488,7 @@ class Column
         $name = $this->getName();
         $query = request()->query();
 
-        $this->prefix(function ($_, $original) use ($name, $query) {
+        $this->prefix(function($_, $original) use ($name, $query) {
             Arr::set($query, $name, $original);
 
             $url = request()->fullUrlWithQuery($query);
@@ -541,7 +541,7 @@ class Column
 
         $column = $this;
 
-        return $this->display(function ($value) use ($grid, $column, $abstract, $arguments) {
+        return $this->display(function($value) use ($grid, $column, $abstract, $arguments) {
             /** @var AbstractDisplayer $displayer */
             $displayer = new $abstract($value, $grid, $column, $this);
 
@@ -559,7 +559,7 @@ class Column
      */
     public function using(array $values, $default = null)
     {
-        return $this->display(function ($value) use ($values, $default) {
+        return $this->display(function($value) use ($values, $default) {
             if (is_null($value)) {
                 return $default;
             }
@@ -577,7 +577,7 @@ class Column
      */
     public function replace(array $replacements)
     {
-        return $this->display(function ($value) use ($replacements) {
+        return $this->display(function($value) use ($replacements) {
             if (isset($replacements[$value])) {
                 return $replacements[$value];
             }
@@ -595,7 +595,7 @@ class Column
      */
     public function view($view)
     {
-        return $this->display(function ($value) use ($view) {
+        return $this->display(function($value) use ($view) {
             $model = $this;
 
             return view($view, compact('model', 'value'))->render();
@@ -635,7 +635,7 @@ class Column
      */
     public function filesize()
     {
-        return $this->display(function ($value) {
+        return $this->display(function($value) {
             return file_size($value);
         });
     }
@@ -649,7 +649,7 @@ class Column
      */
     public function gravatar($size = 30)
     {
-        return $this->display(function ($value) use ($size) {
+        return $this->display(function($value) use ($size) {
             $src = sprintf(
                 'https://www.gravatar.com/avatar/%s?s=%d',
                 md5(strtolower($value)),
@@ -670,7 +670,7 @@ class Column
      */
     public function loading($values = [], $others = [])
     {
-        return $this->display(function ($value) use ($values, $others) {
+        return $this->display(function($value) use ($values, $others) {
             $values = (array) $values;
 
             if (in_array($value, $values)) {
@@ -691,7 +691,7 @@ class Column
      */
     public function icon(array $setting, $default = '')
     {
-        return $this->display(function ($value) use ($setting, $default) {
+        return $this->display(function($value) use ($setting, $default) {
             $fa = '';
 
             if (isset($setting[$value])) {
@@ -717,7 +717,7 @@ class Column
             Carbon::setLocale($locale);
         }
 
-        return $this->display(function ($value) {
+        return $this->display(function($value) {
             return Carbon::parse($value)->diffForHumans();
         });
     }
@@ -731,7 +731,7 @@ class Column
      */
     public function date($format)
     {
-        return $this->display(function ($value) use ($format) {
+        return $this->display(function($value) use ($format) {
             return date($format, strtotime($value));
         });
     }
@@ -746,7 +746,7 @@ class Column
      */
     public function bool(array $map = [], $default = false)
     {
-        return $this->display(function ($value) use ($map, $default) {
+        return $this->display(function($value) use ($map, $default) {
             $bool = empty($map) ? boolval($value) : Arr::get($map, $value, $default);
 
             return $bool ? '<i class="fa fa-check text-green"></i>' : '<i class="fa fa-close text-red"></i>';
@@ -768,7 +768,7 @@ class Column
 
         $grid = $this->grid;
 
-        return $this->display(function ($_, $column) use ($action, $grid) {
+        return $this->display(function($_, $column) use ($action, $grid) {
             /** @var RowAction $action */
             $action = new $action();
 
@@ -790,7 +790,7 @@ class Column
      */
     public function dot($options = [], $default = '')
     {
-        return $this->prefix(function ($_, $original) use ($options, $default) {
+        return $this->prefix(function($_, $original) use ($options, $default) {
             if (is_null($original)) {
                 $style = $default;
             } else {
@@ -917,7 +917,7 @@ class Column
         $grid = $this->grid;
         $column = $this;
 
-        $this->display(function ($value) use ($grid, $column, $class) {
+        $this->display(function($value) use ($grid, $column, $class) {
             /** @var AbstractDisplayer $definition */
             $definition = new $class($value, $grid, $column, $this);
 
@@ -935,7 +935,7 @@ class Column
     protected function htmlEntityEncode($item)
     {
         if (is_array($item)) {
-            array_walk_recursive($item, function (&$value) {
+            array_walk_recursive($item, function(&$value) {
                 $value = htmlentities($value);
             });
         } else {
@@ -972,7 +972,7 @@ class Column
      */
     protected function callSupportDisplayer($abstract, $arguments)
     {
-        return $this->display(function ($value) use ($abstract, $arguments) {
+        return $this->display(function($value) use ($abstract, $arguments) {
             if (is_array($value) || $value instanceof Arrayable) {
                 return call_user_func_array([collect($value), $abstract], $arguments);
             }
@@ -996,7 +996,7 @@ class Column
     protected function callBuiltinDisplayer($abstract, $arguments)
     {
         if ($abstract instanceof Closure) {
-            return $this->display(function ($value) use ($abstract, $arguments) {
+            return $this->display(function($value) use ($abstract, $arguments) {
                 return $abstract->call($this, ...array_merge([$value], $arguments));
             });
         }
@@ -1005,7 +1005,7 @@ class Column
             $grid = $this->grid;
             $column = $this;
 
-            return $this->display(function ($value) use ($abstract, $grid, $column, $arguments) {
+            return $this->display(function($value) use ($abstract, $grid, $column, $arguments) {
                 /** @var AbstractDisplayer $displayer */
                 $displayer = new $abstract($value, $grid, $column, $this);
 

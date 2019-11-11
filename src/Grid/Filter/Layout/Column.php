@@ -73,7 +73,7 @@ class Column
      */
     public function removeFilterByID($id)
     {
-        $this->filters = $this->filters->reject(function (AbstractFilter $filter) use ($id) {
+        $this->filters = $this->filters->reject(function(AbstractFilter $filter) use ($id) {
             return $filter->getId() == $id;
         });
     }

@@ -56,7 +56,7 @@ LOGO;
      */
     protected function listAdminCommands()
     {
-        $commands = collect(Artisan::all())->mapWithKeys(function ($command, $key) {
+        $commands = collect(Artisan::all())->mapWithKeys(function($command, $key) {
             if (Str::startsWith($key, 'admin:')) {
                 return [$key => $command];
             }

@@ -105,7 +105,7 @@ class Selector implements Renderable
             return [];
         }
 
-        $selected = array_filter($selected, function ($value) {
+        $selected = array_filter($selected, function($value) {
             return !is_null($value);
         });
 

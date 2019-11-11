@@ -67,7 +67,7 @@ class PerPageSelector extends AbstractTool
     {
         Admin::script($this->script());
 
-        $options = $this->getOptions()->map(function ($option) {
+        $options = $this->getOptions()->map(function($option) {
             $selected = ($option == $this->perPage) ? 'selected' : '';
             $url = \request()->fullUrlWithQuery([$this->perPageName => $option]);
 

@@ -89,7 +89,7 @@ class ExportSeedCommand extends Command
         $fields = \DB::getSchemaBuilder()->getColumnListing($table);
         $fields = array_diff($fields, $exceptFields);
 
-        $array = \DB::table($table)->get($fields)->map(function ($item) {
+        $array = \DB::table($table)->get($fields)->map(function($item) {
             return (array) $item;
         })->all();
 

@@ -6,7 +6,7 @@ class Button extends AbstractDisplayer
 {
     public function display($style = null)
     {
-        $style = collect((array) $style)->map(function ($style) {
+        $style = collect((array) $style)->map(function($style) {
             return 'btn-'.$style;
         })->implode(' ');
 

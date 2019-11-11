@@ -66,7 +66,7 @@ class LogOperation
             return true;
         }
 
-        return $allowedMethods->map(function ($method) {
+        return $allowedMethods->map(function($method) {
             return strtoupper($method);
         })->contains($method);
     }

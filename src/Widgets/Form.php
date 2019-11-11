@@ -300,7 +300,7 @@ class Form implements Renderable
      */
     public function setWidth($fieldWidth = 8, $labelWidth = 2)
     {
-        collect($this->fields)->each(function ($field) use ($fieldWidth, $labelWidth) {
+        collect($this->fields)->each(function($field) use ($fieldWidth, $labelWidth) {
             /* @var Field $field  */
             $field->setWidth($fieldWidth, $labelWidth);
         });
@@ -515,7 +515,7 @@ class Form implements Renderable
 
         $field = new $class(Arr::get($arguments, 0), array_slice($arguments, 1));
 
-        return tap($field, function ($field) {
+        return tap($field, function($field) {
             $this->pushField($field);
         });
     }

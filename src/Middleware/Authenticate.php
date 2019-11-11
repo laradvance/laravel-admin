@@ -42,7 +42,7 @@ class Authenticate
 
         return collect($excepts)
             ->map('admin_base_path')
-            ->contains(function ($except) use ($request) {
+            ->contains(function($except) use ($request) {
                 if ($except !== '/') {
                     $except = trim($except, '/');
                 }

@@ -243,7 +243,7 @@ class Show implements Renderable
             $this->overwriteExistingField($name);
         }
 
-        return tap($field, function ($field) {
+        return tap($field, function($field) {
             $this->fields->push($field);
         });
     }
@@ -267,7 +267,7 @@ class Show implements Renderable
             $this->overwriteExistingRelation($name);
         }
 
-        return tap($relation, function ($relation) {
+        return tap($relation, function($relation) {
             $this->relations->push($relation);
         });
     }
@@ -284,7 +284,7 @@ class Show implements Renderable
         }
 
         $this->fields = $this->fields->filter(
-            function (Field $field) use ($name) {
+            function(Field $field) use ($name) {
                 return $field->getName() != $name;
             }
         );
@@ -302,7 +302,7 @@ class Show implements Renderable
         }
 
         $this->relations = $this->relations->filter(
-            function (Relation $relation) use ($name) {
+            function(Relation $relation) use ($name) {
                 return $relation->getName() != $name;
             }
         );
@@ -359,7 +359,7 @@ class Show implements Renderable
      */
     public function setWidth($fieldWidth = 8, $labelWidth = 2)
     {
-        collect($this->fields)->each(function ($field) use ($fieldWidth, $labelWidth) {
+        collect($this->fields)->each(function($field) use ($fieldWidth, $labelWidth) {
             $field->each->setWidth($fieldWidth, $labelWidth);
         });
 

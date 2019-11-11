@@ -42,7 +42,7 @@ class CreateUserCommand extends Command
         if (empty($selectedOption)) {
             $selected = $this->choice('Please choose a role for the user', $selectedOption, null, null, true);
 
-            $roles = $roles->filter(function ($role) use ($selected) {
+            $roles = $roles->filter(function($role) use ($selected) {
                 return in_array($role->name, $selected);
             });
         }

@@ -100,7 +100,7 @@ class Role extends Model
     {
         parent::boot();
 
-        static::deleting(function ($model) {
+        static::deleting(function($model) {
             $model->administrators()->detach();
 
             $model->permissions()->detach();

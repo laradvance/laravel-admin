@@ -236,7 +236,7 @@ abstract class Extension
     public static function import()
     {
         $extension = static::getInstance();
-        DB::transaction(function () use ($extension) {
+        DB::transaction(function() use ($extension) {
             if ($menu = $extension->menu()) {
                 if ($extension->validateMenu($menu)) {
                     extract($menu);

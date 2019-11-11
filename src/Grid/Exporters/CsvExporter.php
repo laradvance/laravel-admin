@@ -22,12 +22,12 @@ class CsvExporter extends AbstractExporter
             'Content-Disposition' => "attachment; filename=\"$filename\"",
         ];
 
-        response()->stream(function () {
+        response()->stream(function() {
             $handle = fopen('php://output', 'w');
 
             $titles = [];
 
-            $this->chunk(function ($records) use ($handle, &$titles) {
+            $this->chunk(function($records) use ($handle, &$titles) {
                 if (empty($titles)) {
                     $titles = $this->getHeaderRowFromRecords($records);
 
@@ -55,7 +55,7 @@ class CsvExporter extends AbstractExporter
     public function getHeaderRowFromRecords(Collection $records): array
     {
         $titles = collect(Arr::dot($records->first()->getAttributes()))->keys()->map(
-            function ($key) {
+            function($key) {
                 $key = str_replace('.', ' ', $key);
 
                 return Str::ucfirst($key);

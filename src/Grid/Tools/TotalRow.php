@@ -87,7 +87,7 @@ class TotalRow extends AbstractTool
      */
     public function render()
     {
-        $columns = $this->getVisibleColumns()->map(function (Column $column) {
+        $columns = $this->getVisibleColumns()->map(function(Column $column) {
             $name = $column->getName();
 
             $total = '';

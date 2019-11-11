@@ -168,7 +168,7 @@ SCRIPT;
             return $this->style([$styles]);
         }
 
-        $styles = array_map(function ($style) {
+        $styles = array_map(function($style) {
             return 'box-'.$style;
         }, $styles);
 
