@@ -103,7 +103,7 @@ class Column
     protected static $originalGridModels;
 
     /**
-     * @var array|\Closure
+     * @var []Closure
      */
     protected $displayCallbacks = [];
 
@@ -553,7 +553,7 @@ class Column
      * Display column using array value map.
      *
      * @param array $values
-     * @param $default
+     * @param null  $default
      *
      * @return $this
      */
@@ -617,13 +617,83 @@ class Column
     /**
      * Add column to total-row.
      *
-     * @param $display
+     * @param null $display
      *
      * @return $this
      */
     public function totalRow($display = null)
     {
         $this->grid->addTotalRow($this->name, $display);
+
+        return $this;
+    }
+
+    /**
+     * For total-row column used aggregation operation SUM.
+     *
+     * @param null $display
+     *
+     * @return $this
+     */
+    public function totalSum($display = null)
+    {
+        $this->grid->addTotalOperation($this->name, 'sum', $display);
+
+        return $this;
+    }
+
+    /**
+     * For total-row column used aggregation operation COUNT.
+     *
+     * @param null $display
+     *
+     * @return $this
+     */
+    public function totalCount($display = null)
+    {
+        $this->grid->addTotalOperation($this->name, 'count', $display);
+
+        return $this;
+    }
+
+    /**
+     * For total-row column used aggregation operation AVG.
+     *
+     * @param null $display
+     *
+     * @return $this
+     */
+    public function totalAvg($display = null)
+    {
+        $this->grid->addTotalOperation($this->name, 'avg', $display);
+
+        return $this;
+    }
+
+    /**
+     * For total-row column used aggregation operation MIN.
+     *
+     * @param null $display
+     *
+     * @return $this
+     */
+    public function totalMin($display = null)
+    {
+        $this->grid->addTotalOperation($this->name, 'min', $display);
+
+        return $this;
+    }
+
+    /**
+     * For total-row column used aggregation operation MAX.
+     *
+     * @param null $display
+     *
+     * @return $this
+     */
+    public function totalMax($display = null)
+    {
+        $this->grid->addTotalOperation($this->name, 'max', $display);
 
         return $this;
     }
@@ -707,7 +777,7 @@ class Column
     /**
      * Return a human readable format time.
      *
-     * @param $locale
+     * @param null $locale
      *
      * @return $this
      */
