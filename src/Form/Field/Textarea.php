@@ -32,7 +32,7 @@ class Textarea extends Field
      */
     public function render()
     {
-        if (!$this->shouldRender()) {
+        if (! $this->shouldRender()) {
             return '';
         }
 
