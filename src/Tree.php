@@ -257,7 +257,7 @@ class Tree implements Renderable
                             },
                             success: function (data) {
                                 $.pjax.reload('#pjax-container');
-                                toastr.success('{$trans['delete_succeeded']}');
+                                toastr.success('{$trans['delete_succeeded']}', '', {positionClass:"toast-bottom-right"});
                                 resolve(data);
                             }
                         });
@@ -290,7 +290,7 @@ class Tree implements Renderable
 
         $('.{$this->elementId}-refresh').click(function () {
             $.pjax.reload('#pjax-container');
-            toastr.success('{$trans['refresh_succeeded']}');
+            toastr.success('{$trans['refresh_succeeded']}', '', {positionClass:"toast-bottom-right"});
         });
 
         $('.{$this->elementId}-tree-tools').on('click', function(e){
