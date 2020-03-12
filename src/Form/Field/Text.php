@@ -38,7 +38,7 @@ class Text extends Field
     {
         $this->initPlainInput();
 
-        if (!$this->withoutIcon) {
+        if (! $this->withoutIcon) {
             $this->prepend('<i class="fa '.$this->icon.' fa-fw"></i>');
         }
         $this->defaultAttribute('type', 'text')
