@@ -5,9 +5,9 @@
     <div class="col-sm-{{$width['field']}}">
         @foreach($submit_redirects as $value => $redirect)
             @if(in_array($redirect, $checkboxes))
-            <label class="pull-left" style="margin: 5px 10px 0 0;">
+            <div style="margin: 5px 10px 0 0;">
                 <input type="checkbox" class="after-submit" name="after-save" value="{{ $value }}" {{ ($default_check == $redirect) ? 'checked' : '' }}> {{ trans("admin.{$redirect}") }}
-            </label>
+            </div>
             @endif
         @endforeach
     </div>

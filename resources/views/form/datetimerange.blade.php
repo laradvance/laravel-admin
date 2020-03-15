@@ -6,20 +6,12 @@
 
         @include('admin::form.error')
 
-        <div class="row" style="width: 390px">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input type="text" name="{{$name['start']}}" value="{{ old($column['start'], $value['start'] ?? null) }}" class="form-control {{$class['start']}}" style="width: 160px" {!! $attributes !!} />
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input type="text" name="{{$name['end']}}" value="{{ old($column['end'], $value['end'] ?? null) }}" class="form-control {{$class['end']}}" style="width: 160px" {!! $attributes !!} />
-                </div>
-            </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input type="text" name="{{$name['start']}}" value="{{ old($column['start'], $value['start'] ?? null) }}" class="form-control {{$class['start']}}" {!! $attributes !!} />
+            <span class="input-group-addon" style="border-left: 0; border-right: 0;">-</span>
+            <span class="input-group-addon" style="border-right: 0;"><i class="fa fa-calendar"></i></span>
+            <input type="text" name="{{$name['end']}}" value="{{ old($column['end'], $value['end'] ?? null) }}" class="form-control {{$class['end']}}" {!! $attributes !!} />
         </div>
 
         @include('admin::form.help-block')
