@@ -1,3 +1,4 @@
 # CRUD ADMIN CORE
-<p align="center"><a href="https://github.styleci.io/repos/213185685"><img src="https://github.styleci.io/repos/213185685/shield?branch=master" alt="StyleCI"></a></p>
+[![StyleCI](https://github.styleci.io/repos/213185685/shield?branch=master)](https://github.styleci.io/repos/213185685)
+
 This is simplified version of Laravel Admin for using in Laradvance Admin
