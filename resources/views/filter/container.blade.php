@@ -22,12 +22,10 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <div class="btn-group pull-left">
-                            <button class="btn btn-info submit btn-sm"><i
-                                        class="fa fa-search"></i>&nbsp;&nbsp;{{ trans('admin.search') }}</button>
+                            <button class="btn btn-info submit btn-sm"><i class="fa fa-search"></i>&nbsp;&nbsp;{{ trans('admin.search') }}</button>
                         </div>
                         <div class="btn-group pull-left " style="margin-left: 10px;">
-                            <a href="{!! $action !!}" class="btn btn-default btn-sm"><i
-                                        class="fa fa-undo"></i>&nbsp;&nbsp;{{ trans('admin.reset') }}</a>
+                            <a href="{!! $action !!}" class="btn btn-default btn-sm"><i class="fa fa-undo"></i>&nbsp;&nbsp;{{ trans('admin.reset') }}</a>
                         </div>
                     </div>
                 </div>
