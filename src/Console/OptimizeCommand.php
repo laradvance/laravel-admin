@@ -5,21 +5,21 @@ namespace Encore\Admin\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class DeployCommand extends Command
+class OptimizeCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $signature = 'admin:deploy';
+    protected $signature = 'admin:optimize';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Deploy Application';
+    protected $description = 'Optimize Application';
 
     /**
      * Execute the console command.
@@ -35,9 +35,12 @@ class DeployCommand extends Command
         $this->removeHelpers();
         $this->resetSessions();
         $this->call('config:cache');
-        $this->call('route:cache');
         $this->call('view:cache');
         $this->line('<info>Deployment Successful!</info>');
+        if (! $this->confirm('Want to optimize Route Loading?')) {
+            return;
+        }
+        $this->call('route:cache');
     }
 
     /**
@@ -67,10 +70,10 @@ class DeployCommand extends Command
      *
      * @return void
      */
-    protected function removeHelper()
+    protected function removeHelpers()
     {
-        DB::table('admin_menu')->where('title', '=', 'Helpers')->delete();
-        DB::table('admin_menu')->where('uri', 'like', 'helpers/%')->delete();
+        DB::table(config('admin.database.menu_table'))->where('title', '=', 'Helpers')->delete();
+        DB::table(config('admin.database.menu_table'))->where('uri', 'like', 'helpers/%')->delete();
     }
 
     /**
