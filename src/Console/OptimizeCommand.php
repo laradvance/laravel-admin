@@ -53,7 +53,7 @@ class OptimizeCommand extends Command
         $this->laravel['files']->deleteDirectory(base_path('tests'));
         $this->laravel['files']->deleteDirectory(storage_path('debugbar'));
         $this->laravel['files']->deleteDirectory(storage_path('framework/sessions'));
-        $this->laravel['files']->deleteDirectory(public_path('upload'));
+        $this->laravel['files']->deleteDirectory(public_path('uploads'));
         $this->laravel['files']->delete(base_path('.editorconfig'));
         $this->laravel['files']->delete(base_path('.env.example'));
         $this->laravel['files']->delete(base_path('.gitattributes'));
@@ -62,7 +62,7 @@ class OptimizeCommand extends Command
         $this->laravel['files']->delete(base_path('.travis.yml'));
         $this->laravel['files']->delete(base_path('LICENSE'));
         $this->laravel['files']->delete(base_path('README.md'));
-        $this->laravel['files']->delete(base_path('phpunit.xml.dist'));        
+        $this->laravel['files']->delete(base_path('phpunit.xml.dist'));
         $this->laravel['files']->delete(base_path('phpunit.xml'));
     }
 
