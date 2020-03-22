@@ -60,9 +60,10 @@ class OptimizeCommand extends Command
         $this->laravel['files']->delete(base_path('.gitignore'));
         $this->laravel['files']->delete(base_path('.styleci.yml'));
         $this->laravel['files']->delete(base_path('.travis.yml'));
-        $this->laravel['files']->delete(base_path('LISENCE'));
+        $this->laravel['files']->delete(base_path('LICENSE'));
         $this->laravel['files']->delete(base_path('README.md'));
-        $this->laravel['files']->delete(base_path('phpunit.xml.dist'));
+        $this->laravel['files']->delete(base_path('phpunit.xml.dist'));        
+        $this->laravel['files']->delete(base_path('phpunit.xml'));
     }
 
     /**
@@ -74,6 +75,7 @@ class OptimizeCommand extends Command
     {
         DB::table(config('admin.database.menu_table'))->where('title', '=', 'Helpers')->delete();
         DB::table(config('admin.database.menu_table'))->where('uri', 'like', 'helpers/%')->delete();
+        DB::table(config('admin.database.permissions_table'))->where('slug', '=', 'ext.helpers')->delete();
     }
 
     /**
