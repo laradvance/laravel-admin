@@ -64,6 +64,7 @@ class OptimizeCommand extends Command
         $this->laravel['files']->delete(base_path('README.md'));
         $this->laravel['files']->delete(base_path('phpunit.xml.dist'));
         $this->laravel['files']->delete(base_path('phpunit.xml'));
+        $this->laravel['files']->delete(storage_path('logs/laravel.log'));
     }
 
     /**
@@ -79,12 +80,27 @@ class OptimizeCommand extends Command
     }
 
     /**
-     * Remove Helpers Menu.
+     * Recreate Session Folder.
      *
      * @return void
      */
     protected function resetSessions()
     {
         $this->laravel['files']->makeDirectory(storage_path('framework/sessions'), 0755, true, true);
+        $file = storage_path('framework/sessions').'/.gitignore';
+        $contents = $this->getStub('gitignore');
+        $this->laravel['files']->put($file, $contents);
+    }
+
+    /**
+     * Get stub contents.
+     *
+     * @param $name
+     *
+     * @return string
+     */
+    protected function getStub($name)
+    {
+        return $this->laravel['files']->get(__DIR__."/stubs/$name.stub");
     }
 }
