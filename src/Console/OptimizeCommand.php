@@ -36,7 +36,7 @@ class OptimizeCommand extends Command
         $this->resetSessions();
         $this->call('config:cache');
         $this->call('view:cache');
-        $this->line('<info>Deployment Successful!</info>');
+        $this->line('<info>Optimization Successful!</info>');
         if (! $this->confirm('Want to optimize Route Loading?')) {
             return;
         }
