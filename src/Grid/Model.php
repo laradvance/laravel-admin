@@ -531,10 +531,11 @@ class Model
         }
 
         $columnNameContainsDots = Str::contains($columnName, '.');
-        $isRelation = $this->queries->contains(function ($query) use ($columnName) {
-            return $query['method'] === 'with' && in_array($columnName, $query['arguments'], true);
+        $relationName = explode('.', $columnName);
+        $isRelation = $this->queries->contains(function ($query) use ($relationName) {
+            return $query['method'] === 'with' && in_array($relationName[0], $query['arguments'], true);
         });
-        if ($columnNameContainsDots === true && $isRelation) {
+        if ($columnNameContainsDots === true && $isRelation === true) {
             $this->setRelationSort($columnName);
         } else {
             $this->resetOrderBy();
