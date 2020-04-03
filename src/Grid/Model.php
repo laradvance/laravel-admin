@@ -539,10 +539,7 @@ class Model
             $this->setRelationSort($columnName);
         } else {
             $this->resetOrderBy();
-
             if ($columnNameContainsDots === true) {
-                //json
-                $this->resetOrderBy();
                 $explodedCols = explode('.', $this->sort['column']);
                 $col = array_shift($explodedCols);
                 $parts = implode('.', $explodedCols);
