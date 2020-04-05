@@ -9,8 +9,10 @@
             </div><!-- /.box-tools -->
         </div><!-- /.box-header -->
     @endif
-    <div class="box-body table-responsive" style="display: block;">
-        {!! $content !!}
+    <div class="box-body">
+	    <div class="table-responsive">
+            {!! $content !!}
+		</div>
     </div><!-- /.box-body -->
     @if($footer)
         <div class="box-footer">
