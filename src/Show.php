@@ -314,9 +314,9 @@ class Show implements Renderable
     /**
      * Show a divider.
      */
-    public function divider()
+    public function divider($title='')
     {
-        $this->fields->push(new Divider());
+        $this->fields->push(new Divider($title));
     }
 
     /**

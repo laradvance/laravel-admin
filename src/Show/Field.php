@@ -39,13 +39,13 @@ class Field implements Renderable
     protected $label;
 
     /**
-     * Width for label and field.
+     * Width for label and field (%).
      *
      * @var array
      */
     protected $width = [
-        'label' => 2,
-        'field' => 8,
+        'label' => 20,
+        'field' => 80,
     ];
 
     /**

@@ -8,18 +8,15 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <div class="form-horizontal">
-
-        <div class="box-body">
-
-            <div class="fields-group">
+    <div class="table-responsive">
+    <table class="table table-striped">
+            <tbody>
 
                 @foreach($fields as $field)
                     {!! $field->render() !!}
                 @endforeach
-            </div>
-
-        </div>
+            </tbody>
         <!-- /.box-body -->
+    </table>
     </div>
 </div>

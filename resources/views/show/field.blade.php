@@ -1,23 +1,12 @@
-<div class="form-group ">
-    <label class="col-sm-{{$width['label']}} control-label">{{ $label }}</label>
-    <div class="col-sm-{{$width['field']}}">
-        @if($wrapped)
-        <div class="box box-solid box-default no-margin box-show">
-            <!-- /.box-header -->
-            <div class="box-body">
-                @if($escape)
-                    {{ $content }}&nbsp;
-                @else
-                    {!! $content !!}&nbsp;
-                @endif
-            </div><!-- /.box-body -->
-        </div>
-        @else
+<tr>
+    <td style="padding-left: 20px" width="{{$width['label']}}%"><strong>{{ $label }}:</strong></td>
+    <td width="{{$width['field']}}%">
+        <span>
             @if($escape)
                 {{ $content }}
             @else
                 {!! $content !!}
             @endif
-        @endif
-    </div>
-</div>
+        </span>
+    <td>
+</tr>
