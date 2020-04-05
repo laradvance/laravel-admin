@@ -6,17 +6,15 @@
             {!! $tools !!}
         </div>
     </div>
-    <!-- /.box-header -->
-    <!-- form start -->
+    <!-- /.box-body -->
+    <div class="box-body">
     <div class="table-responsive">
     <table class="table table-striped">
-            <tbody>
-
                 @foreach($fields as $field)
                     {!! $field->render() !!}
                 @endforeach
-            </tbody>
         <!-- /.box-body -->
     </table>
+    </div>
     </div>
 </div>
