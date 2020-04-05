@@ -1,5 +1,7 @@
 <tr>
-    <td style="padding-left: 20px" width="{{$width['label']}}%"><strong>{{ $label }}:</strong></td>
+    <td width="{{$width['label']}}%">
+		<strong>{{ $label }}:</strong>
+	</td>
     <td width="{{$width['field']}}%">
         <span>
             @if($escape)
