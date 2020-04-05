@@ -25,7 +25,8 @@
     {!! $grid->renderHeader() !!}
 
     <!-- /.box-header -->
-    <div class="box-body table-responsive">
+    <div class="box-body">
+	<div class="table-responsive">
         <table class="table table-hover" id="{{ $grid->tableID }}">
             <thead>
                 <tr>
@@ -59,6 +60,7 @@
             {!! $grid->renderTotalRow() !!}
 
         </table>
+		</div>
 
     </div>
 
