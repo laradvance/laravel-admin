@@ -21,5 +21,4 @@ class Divider extends Field
 </tr>
 HTML;
     }
-
 }
