@@ -8,10 +8,10 @@
 
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-            <input type="text" name="{{$name['start']}}" value="{{ old($column['start'], $value['start']) }}" class="form-control {{$class['start']}}" {!! $attributes !!} />
+            <input type="text" name="{{$name['start']}}" value="{{ old($column['start'], $value['start'] ?? null) }}" class="form-control {{$class['start']}}" {!! $attributes !!} />
             <span class="input-group-addon" style="border-left: 0; border-right: 0;">-</span>
             <span class="input-group-addon" style="border-right: 0;"><i class="fa fa-clock-o"></i></span>
-            <input type="text" name="{{$name['end']}}" value="{{ old($column['end'], $value['end']) }}" class="form-control {{$class['end']}}" {!! $attributes !!} />
+            <input type="text" name="{{$name['end']}}" value="{{ old($column['end'], $value['end'] ?? null) }}" class="form-control {{$class['end']}}" {!! $attributes !!} />
         </div>
 
         @include('admin::form.help-block')
