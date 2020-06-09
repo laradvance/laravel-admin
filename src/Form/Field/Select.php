@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 
 class Select extends Field
 {
+    use CanCascadeFields;
+
     /**
      * @var array
      */
@@ -31,6 +33,11 @@ class Select extends Field
      * @var array
      */
     protected $config = [];
+
+    /**
+     * @var string
+     */
+    protected $cascadeEvent = 'change';
 
     /**
      * Set options.
@@ -181,22 +188,17 @@ JS;
 var fields = '$fieldsStr'.split('.');
 var urls = '$urlsStr'.split('^');
 var refreshOptions = function(url, target) {
-    $.ajax({
-        url:url,
-        dataType:'json',
-        success:function(data) {
-          target.find("option").remove();
-          target.append('<option value=""></option>');
-            $(target).select2({
-                placeholder: $placeholder,
-                allowClear: $allowClear,               
-                data: $.map(data, function (d) {
-                    d.id = d.{$idField};
-                    d.text = d.{$textField};
-                    return d;
-                })
-            }).trigger('change');
-        }
+    $.get(url).then(function(data) {
+        target.find("option").remove();
+        $(target).select2({
+            placeholder: $placeholder,
+            allowClear: $strAllowClear,
+            data: $.map(data, function (d) {
+                d.id = d.$idField;
+                d.text = d.$textField;
+                return d;
+            })
+        }).trigger('change');
     });
 };
 $(document).off('change', "{$this->getElementClassSelector()}");
@@ -422,6 +424,9 @@ EOT;
             'options' => $this->options,
             'groups'  => $this->groups,
         ]);
+
+        $this->addCascadeScript();
+
         $this->attribute('data-value', implode(',', (array) $this->value()));
 
         return parent::render();
