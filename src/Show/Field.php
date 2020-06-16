@@ -516,7 +516,7 @@ HTML;
      */
     protected function getRelationValue($model, $name)
     {
-        list($relation, $key) = explode('.', $name);
+        [$relation, $key] = explode('.', $name);
 
         if ($related = $model->getRelationValue($relation)) {
             return $related->getAttribute($key);

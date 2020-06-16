@@ -102,7 +102,7 @@ trait CanCascadeFields
      */
     protected function applyCascadeConditions()
     {
-        if( $this->form ) {
+        if ($this->form) {
             $this->form->fields()
                 ->filter(function (Form\Field $field) {
                     return $field instanceof CascadeGroup
@@ -143,7 +143,7 @@ trait CanCascadeFields
             case 'in':
                 return in_array($old, $value);
             case 'notIn':
-                return !in_array($old, $value);
+                return ! in_array($old, $value);
             case 'has':
                 return in_array($value, $old);
             default:

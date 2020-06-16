@@ -657,7 +657,7 @@ SCRIPT;
 
         $tabObj = $this->form->setTab();
 
-        if (!$tabObj->isEmpty()) {
+        if (! $tabObj->isEmpty()) {
             $this->addTabformScript();
         }
 

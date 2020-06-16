@@ -404,7 +404,7 @@ class Form implements Renderable
 
         /** @var Field $field */
         foreach ($this->fields() as $field) {
-            if (!\request()->has($field->column())) {
+            if (! \request()->has($field->column())) {
                 continue;
             }
 
@@ -1031,7 +1031,7 @@ class Form implements Renderable
         $data = $this->model->toArray();
 
         $this->fields()->each(function (Field $field) use ($data) {
-            if (!in_array($field->column(), $this->ignored, true)) {
+            if (! in_array($field->column(), $this->ignored, true)) {
                 $field->fill($data);
             }
         });
@@ -1071,7 +1071,7 @@ class Form implements Renderable
 
         /** @var Field $field */
         foreach ($this->fields() as $field) {
-            if (!$validator = $field->getValidator($input)) {
+            if (! $validator = $field->getValidator($input)) {
                 continue;
             }
 
@@ -1208,15 +1208,15 @@ class Form implements Renderable
      */
     public function confirm(string $message, $on = null)
     {
-        if ($on && !in_array($on, ['create', 'edit'])) {
+        if ($on && ! in_array($on, ['create', 'edit'])) {
             throw new \InvalidArgumentException("The second paramater `\$on` must be one of ['create', 'edit']");
         }
 
-        if ($on == 'create' && !$this->isCreating()) {
+        if ($on == 'create' && ! $this->isCreating()) {
             return;
         }
 
-        if ($on == 'edit' && !$this->isEditing()) {
+        if ($on == 'edit' && ! $this->isEditing()) {
             return;
         }
 

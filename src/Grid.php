@@ -466,7 +466,7 @@ class Grid
      */
     public function disablePerPageSelector(bool $disable = true)
     {
-        return $this->option('show_perpage_selector', !$disable);
+        return $this->option('show_perpage_selector', ! $disable);
     }
 
     /**

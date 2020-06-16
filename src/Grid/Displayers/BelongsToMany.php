@@ -151,7 +151,7 @@ SCRIPT;
             $data = explode(',', $relations);
         }
 
-        if (!is_array($relations)) {
+        if (! is_array($relations)) {
             return;
         }
 

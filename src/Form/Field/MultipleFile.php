@@ -392,7 +392,7 @@ EOT;
 
         $path = Arr::get($files, "{$key}.{$this->pathColumn}");
 
-        if (!$this->retainable && $this->storage->exists($path)) {
+        if (! $this->retainable && $this->storage->exists($path)) {
             $this->storage->delete($path);
         }
 

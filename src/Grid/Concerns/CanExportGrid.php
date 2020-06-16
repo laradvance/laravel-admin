@@ -22,7 +22,7 @@ trait CanExportGrid
      */
     protected function handleExportRequest($forceExport = false)
     {
-        if (!$scope = request(Exporter::$queryName)) {
+        if (! $scope = request(Exporter::$queryName)) {
             return;
         }
 
@@ -98,7 +98,7 @@ trait CanExportGrid
      */
     public function disableExport(bool $disable = true)
     {
-        return $this->option('show_exporter', !$disable);
+        return $this->option('show_exporter', ! $disable);
     }
 
     /**
@@ -116,7 +116,7 @@ trait CanExportGrid
      */
     public function export(\Closure $callback)
     {
-        if (!$scope = request(Exporter::$queryName)) {
+        if (! $scope = request(Exporter::$queryName)) {
             return;
         }
 

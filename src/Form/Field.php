@@ -719,7 +719,7 @@ class Field implements Renderable
             $rules = array_filter(explode('|', $rules));
         }
 
-        if (!$this->form || !$this->form instanceof Form) {
+        if (! $this->form || ! $this->form instanceof Form) {
             return $rules;
         }
 

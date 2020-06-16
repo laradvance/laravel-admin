@@ -52,9 +52,9 @@ class GenerateMenuCommand extends Command
             $uri = $route->uri();
             // built-in, parameterized and no-GET are ignored
             return Str::startsWith($uri, 'admin/')
-                && !Str::startsWith($uri, 'admin/auth/')
-                && !Str::endsWith($uri, '/create')
-                && !Str::contains($uri, '{')
+                && ! Str::startsWith($uri, 'admin/auth/')
+                && ! Str::endsWith($uri, '/create')
+                && ! Str::contains($uri, '{')
                 && in_array('GET', $route->methods());
         })
             ->map(function (Route $route) {
@@ -80,7 +80,7 @@ class GenerateMenuCommand extends Command
             ];
         })->values()->toArray();
 
-        if (!$news) {
+        if (! $news) {
             $this->error('No newly registered routes found.');
         } else {
             if ($this->hasOption('dry-run') && $this->option('dry-run')) {

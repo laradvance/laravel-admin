@@ -61,7 +61,7 @@ class Paginator extends AbstractTool
      */
     protected function perPageSelector()
     {
-        if (!$this->perPageSelector) {
+        if (! $this->perPageSelector) {
             return;
         }
 

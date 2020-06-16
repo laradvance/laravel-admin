@@ -571,7 +571,7 @@ SCRIPT;
             $this->form();
         }
 
-        if (!empty($this->confirm)) {
+        if (! empty($this->confirm)) {
             $this->addConfirmScript();
         }
 

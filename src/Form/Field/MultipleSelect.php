@@ -58,7 +58,7 @@ class MultipleSelect extends Select
             $this->value = explode(',', $relations);
         }
 
-        if (!is_array($relations)) {
+        if (! is_array($relations)) {
             $this->applyCascadeConditions();
 
             return;

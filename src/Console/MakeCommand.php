@@ -52,7 +52,7 @@ class MakeCommand extends GeneratorCommand
         $this->modelName = $this->getModelName();
         $this->controllerName = $this->getControllerName();
 
-        if (!$this->modelExists()) {
+        if (! $this->modelExists()) {
             $this->error('Model does not exists !');
 
             return false;

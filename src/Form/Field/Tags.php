@@ -130,7 +130,7 @@ class Tags extends Field
         if ($separators instanceof Collection or $separators instanceof Arrayable) {
             $separators = $separators->toArray();
         }
-        if (!empty($separators)) {
+        if (! empty($separators)) {
             $this->separators = $separators;
         }
 

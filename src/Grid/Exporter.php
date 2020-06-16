@@ -100,7 +100,7 @@ class Exporter
             return static::$exporter;
         }
 
-        if (!array_key_exists($driver, static::$drivers)) {
+        if (! array_key_exists($driver, static::$drivers)) {
             return static::$exporter = $this->getDefaultExporter();
         }
 

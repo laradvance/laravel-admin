@@ -119,7 +119,7 @@ class CsvExporter extends AbstractExporter
      */
     protected function getHeaders()
     {
-        if (!$this->filename) {
+        if (! $this->filename) {
             $this->filename = $this->getTable();
         }
 
@@ -224,7 +224,7 @@ class CsvExporter extends AbstractExporter
      */
     protected function getColumnValue(string $column, $value, $original)
     {
-        if (!empty($this->columnUseOriginalValue)
+        if (! empty($this->columnUseOriginalValue)
             && in_array($column, $this->columnUseOriginalValue)) {
             return $original;
         }
