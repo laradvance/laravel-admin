@@ -196,7 +196,7 @@ trait HasFields
      */
     public static function collectFieldAssets(): array
     {
-        if (!empty(static::$collectedAssets)) {
+        if (! empty(static::$collectedAssets)) {
             return static::$collectedAssets;
         }
 
@@ -204,7 +204,7 @@ trait HasFields
         $js = collect();
 
         foreach (static::$availableFields as $field) {
-            if (!method_exists($field, 'getAssets')) {
+            if (! method_exists($field, 'getAssets')) {
                 continue;
             }
 

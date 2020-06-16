@@ -50,7 +50,7 @@ abstract class Selectable
      */
     public function __construct($multiple = false, $key = '')
     {
-        $this->key      = $key;
+        $this->key = $key;
         $this->multiple = $multiple;
 
         $this->initGrid();
@@ -113,7 +113,7 @@ abstract class Selectable
 
         $this->disableFeatures()->disableFilter();
 
-        if (!$this->multiple) {
+        if (! $this->multiple) {
             $this->disablePagination();
         }
 
@@ -140,7 +140,7 @@ BTN;
 
     protected function initGrid()
     {
-        if (!class_exists($this->model) || !is_subclass_of($this->model, Model::class)) {
+        if (! class_exists($this->model) || ! is_subclass_of($this->model, Model::class)) {
             throw new \InvalidArgumentException("Invalid model [{$this->model}]");
         }
 
@@ -149,7 +149,7 @@ BTN;
 
         $this->grid = new Grid(new $model());
 
-        if (!$this->key) {
+        if (! $this->key) {
             $this->key = $model->getKeyName();
         }
     }

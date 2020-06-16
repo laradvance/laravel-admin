@@ -329,7 +329,7 @@ trait HasAssets
 
         libxml_use_internal_errors(true);
 
-        $dom->loadHTML('<?xml encoding="utf-8" ?>' . $str);
+        $dom->loadHTML('<?xml encoding="utf-8" ?>'.$str);
 
         libxml_use_internal_errors(false);
 
@@ -338,11 +338,10 @@ trait HasAssets
         }
 
         if ($script = $dom->getElementsByTagName('script')[0]) {
-            static::script(';(function () {' . $script->nodeValue . '})();');
+            static::script(';(function () {'.$script->nodeValue.'})();');
         }
 
         if ($element = $dom->getElementsByTagName('template')[0]) {
-
             $html = '';
 
             foreach ($element->childNodes as $child) {
@@ -355,7 +354,6 @@ trait HasAssets
         }
 
         if ($element = $dom->getElementsByTagName('body')[0]) {
-
             $render = '';
 
             foreach ($element->childNodes as $child) {

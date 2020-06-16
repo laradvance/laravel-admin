@@ -639,7 +639,7 @@ SCRIPT;
 
         $this->addModalHtml();
 
-        if (!empty($this->confirm)) {
+        if (! empty($this->confirm)) {
             return $this->buildConfirmActionPromise();
         }
 

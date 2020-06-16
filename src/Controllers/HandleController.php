@@ -154,7 +154,7 @@ class HandleController extends Controller
     public function handleSelectable(Request $request)
     {
         $class = $request->get('selectable');
-        $args  = $request->get('args', []);
+        $args = $request->get('args', []);
 
         $class = str_replace('_', '\\', $class);
 

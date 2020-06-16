@@ -39,8 +39,7 @@ class Simple implements Renderable
             ->disablePerPageSelector()
             ->paginate(10)
             ->expandFilter()
-            ->render()
-        ;
+            ->render();
     }
 
     /**

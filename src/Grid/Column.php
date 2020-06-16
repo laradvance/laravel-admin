@@ -604,7 +604,7 @@ class Column
 
         if ($input instanceof Closure) {
             return $this->display(function ($value) use ($input, $seperator) {
-                return join($seperator, array_fill(0, (int) $value, $input->call($this, [$value])));
+                return implode($seperator, array_fill(0, (int) $value, $input->call($this, [$value])));
             });
         }
 
