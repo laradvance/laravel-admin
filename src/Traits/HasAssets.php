@@ -333,40 +333,44 @@ trait HasAssets
 
         libxml_use_internal_errors(false);
 
-        if ($style = $dom->getElementsByTagName('style')[0]) {
-            static::style($style->nodeValue);
+        if ($dom->getElementsByTagName('body')->length <= 0) {
+            return;
         }
 
-        if ($script = $dom->getElementsByTagName('script')[0]) {
-            static::script(';(function () {'.$script->nodeValue.'})();');
-        }
+        $body = $dom->getElementsByTagName('body')[0];
 
-        if ($element = $dom->getElementsByTagName('template')[0]) {
-            $html = '';
+        $render = '';
 
-            foreach ($element->childNodes as $child) {
-                $html .= $element->ownerDocument->saveHTML($child);
+        foreach ($body->childNodes as $child) {
+
+            if ($child instanceof \DOMElement && $child->tagName == 'style') {
+                static::style($child->nodeValue);
             }
 
-            if ($html) {
-                static::html($html);
+            if ($child instanceof \DOMElement && $child->tagName == 'script') {
+                static::script(';(function () {' . $child->nodeValue . '})();');
             }
-        }
 
-        if ($element = $dom->getElementsByTagName('body')[0]) {
-            $render = '';
+            if ($child instanceof \DOMElement && $child->tagName == 'template') {
 
-            foreach ($element->childNodes as $child) {
-                if ($child instanceof \DOMElement && in_array($child->tagName, ['template', 'style', 'script'])) {
-                    continue;
+                $html = '';
+
+                foreach ($child->childNodes as $childNode) {
+                    $html .= $child->ownerDocument->saveHTML($childNode);
                 }
 
-                $render .= $element->ownerDocument->saveHTML($child);
+                if ($html) {
+                    static::html($html);
+                }
             }
 
-            if ($render) {
-                return $render;
+            if ($child instanceof \DOMElement && in_array($child->tagName, ['template', 'style', 'script'])) {
+                continue;
             }
+
+            $render .= $body->ownerDocument->saveHTML($child);
         }
+
+        return $render;
     }
 }

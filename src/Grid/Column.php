@@ -816,20 +816,6 @@ class Column
     }
 
     /**
-     * Returns a string formatted according to the given format string.
-     *
-     * @param string $format
-     *
-     * @return $this
-     */
-    public function date($format)
-    {
-        return $this->display(function ($value) use ($format) {
-            return date($format, strtotime($value));
-        });
-    }
-
-    /**
      * Display column as boolean , `✓` for true, and `✗` for false.
      *
      * @param array $map
@@ -953,6 +939,42 @@ class Column
     public function uplaodMany()
     {
         return $this->displayUsing(Grid\Displayers\Upload::class, [true]);
+    }
+
+    /**
+     * Grid inline datetime picker.
+     *
+     * @param string $format
+     *
+     * @return $this
+     */
+    public function datetime($format = 'YYYY-MM-DD HH:mm:ss')
+    {
+        return $this->displayUsing(Grid\Displayers\Datetime::class, [$format]);
+    }
+
+    /**
+     * Grid inline date picker.
+     *
+     * @param string $format
+     *
+     * @return $this
+     */
+    public function date()
+    {
+        return $this->datetime('YYYY-MM-DD');
+    }
+
+    /**
+     * Grid inline time picker.
+     *
+     * @param string $format
+     *
+     * @return $this
+     */
+    public function time()
+    {
+        return $this->datetime('HH:mm:ss');
     }
 
     /**
