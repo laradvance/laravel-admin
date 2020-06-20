@@ -318,6 +318,15 @@ trait HasAssets
         return admin_asset(static::$jQuery);
     }
 
+
+    /**
+     * @return string
+     */
+    public function bootstrapCss()
+    {
+        return admin_asset(static::$bootstrapCss);
+    }
+
     /**
      * @param $component
      */
