@@ -70,6 +70,7 @@ trait HasAssets
         'vendor/laravel-admin/bootstrap3-editable/css/bootstrap-editable.min.css',
         'vendor/laravel-admin/google-fonts/fonts.min.css',
         'vendor/laravel-admin/AdminLTE/dist/css/AdminLTE.min.css',
+        'vendor/laravel-admin/flags/languages.min.css',
     ];
 
     /**
