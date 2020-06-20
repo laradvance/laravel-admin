@@ -318,7 +318,6 @@ trait HasAssets
         return admin_asset(static::$jQuery);
     }
 
-
     /**
      * @return string
      */
@@ -351,17 +350,15 @@ trait HasAssets
         $render = '';
 
         foreach ($body->childNodes as $child) {
-
             if ($child instanceof \DOMElement && $child->tagName == 'style') {
                 static::style($child->nodeValue);
             }
 
             if ($child instanceof \DOMElement && $child->tagName == 'script') {
-                static::script(';(function () {' . $child->nodeValue . '})();');
+                static::script(';(function () {'.$child->nodeValue.'})();');
             }
 
             if ($child instanceof \DOMElement && $child->tagName == 'template') {
-
                 $html = '';
 
                 foreach ($child->childNodes as $childNode) {
