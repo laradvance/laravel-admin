@@ -19,16 +19,19 @@ class Select extends Field
     protected static $css = [
         '/vendor/laravel-admin/AdminLTE/plugins/select2/select2.min.css',
     ];
+
     /**
      * @var array
      */
     protected static $js = [
         '/vendor/laravel-admin/AdminLTE/plugins/select2/select2.full.min.js',
     ];
+
     /**
      * @var array
      */
     protected $groups = [];
+
     /**
      * @var array
      */
@@ -57,9 +60,11 @@ class Select extends Field
 
             return $this->loadRemoteOptions(...func_get_args());
         }
+
         if ($options instanceof Arrayable) {
             $options = $options->toArray();
         }
+
         if (is_callable($options)) {
             $this->options = $options;
         } else {
@@ -116,34 +121,28 @@ class Select extends Field
         } else {
             $class = $field;
         }
+
         $placeholder = json_encode([
             'id'   => '',
             'text' => trans('admin.choose'),
         ]);
-        $script = <<<JS
+
+        $strAllowClear = var_export($allowClear, true);
+
+        $script = <<<EOT
 $(document).off('change', "{$this->getElementClassSelector()}");
 $(document).on('change', "{$this->getElementClassSelector()}", function () {
     var target = $(this).closest('.fields-group').find(".$class");
-    var targetValue = $(target).attr('data-value');
-    var query=this.value;
-    $.ajax({
-        url:"$sourceUrl",
-        dataType:'json',
-        type:'GET',
-        data:{
-            q:query
-        },
-        success:function(data) {
-          target.find("option").remove();
-          target.append('<option value=""></option>');
-          var select2 = $(target).select2({
-                placeholder: $placeholder,
-                allowClear: $allowClear,               
-                data: $.map(data, function (d) {
-                    d.id = d.{$idField};
-                    d.text = d.{$textField};
-                    return d;
-                })
+    $.get("$sourceUrl",{q : this.value}, function (data) {
+        target.find("option").remove();
+        target.append('<option value=""></option>');
+        $(target).select2({
+            placeholder: $placeholder,
+            allowClear: $strAllowClear,
+            data: $.map(data, function (d) {
+                d.id = d.$idField;
+                d.text = d.$textField;
+                return d;
             })
         });
         if (target.data('value')) {
@@ -152,12 +151,8 @@ $(document).on('change', "{$this->getElementClassSelector()}", function () {
         $(target).trigger('change');
     });
 });
-$("{$this->getElementClassSelector()}").each(function(){
-     if ($(this).data('value')) {
-         $(this).trigger('change');
-     }
-});
-JS;
+EOT;
+
         Admin::script($script);
 
         return $this;
@@ -177,13 +172,18 @@ JS;
     {
         $fieldsStr = implode('.', $fields);
         $urlsStr = implode('^', $sourceUrls);
+
         $placeholder = json_encode([
             'id'   => '',
             'text' => trans('admin.choose'),
         ]);
-        $script = <<<JS
+
+        $strAllowClear = var_export($allowClear, true);
+
+        $script = <<<EOT
 var fields = '$fieldsStr'.split('.');
 var urls = '$urlsStr'.split('^');
+
 var refreshOptions = function(url, target) {
     $.get(url).then(function(data) {
         target.find("option").remove();
@@ -198,16 +198,19 @@ var refreshOptions = function(url, target) {
         }).trigger('change');
     });
 };
+
 $(document).off('change', "{$this->getElementClassSelector()}");
 $(document).on('change', "{$this->getElementClassSelector()}", function () {
     var _this = this;
     var promises = [];
+
     fields.forEach(function(field, index){
         var target = $(_this).closest('.fields-group').find('.' + fields[index]);
         promises.push(refreshOptions(urls[index] + "?q="+ _this.value, target));
     });
 });
-JS;
+EOT;
+
         Admin::script($script);
 
         return $this;
@@ -224,17 +227,19 @@ JS;
      */
     public function model($model, $idField = 'id', $textField = 'name')
     {
-        if (
-            ! class_exists($model)
-            || ! in_array(Model::class, class_parents($model))
+        if (!class_exists($model)
+            || !in_array(Model::class, class_parents($model))
         ) {
             throw new \InvalidArgumentException("[$model] must be a valid model class");
         }
+
         $this->options = function ($value) use ($model, $idField, $textField) {
             if (empty($value)) {
                 return [];
             }
+
             $resources = [];
+
             if (is_array($value)) {
                 if (Arr::isAssoc($value)) {
                     $resources[] = Arr::get($value, $idField);
@@ -272,11 +277,16 @@ JS;
                 'text'      => trans('admin.choose'),
             ],
         ], $this->config);
+
         $configs = json_encode($configs);
         $configs = substr($configs, 1, strlen($configs) - 2);
+
         $ajaxOptions = json_encode(array_merge($ajaxOptions, $options));
+
         $this->script = <<<EOT
+
 $.ajax($ajaxOptions).done(function(data) {
+
   $("{$this->getElementClassSelector()}").each(function(index, element) {
       $(element).select2({
         data: data,
@@ -289,6 +299,7 @@ $.ajax($ajaxOptions).done(function(data) {
       }
   });
 });
+
 EOT;
 
         return $this;
@@ -310,9 +321,12 @@ EOT;
             'placeholder'        => $this->label,
             'minimumInputLength' => 1,
         ], $this->config);
+
         $configs = json_encode($configs);
         $configs = substr($configs, 1, strlen($configs) - 2);
+
         $this->script = <<<EOT
+
 $("{$this->getElementClassSelector()}").select2({
   ajax: {
     url: "$url",
@@ -326,6 +340,7 @@ $("{$this->getElementClassSelector()}").select2({
     },
     processResults: function (data, params) {
       params.page = params.page || 1;
+
       return {
         results: $.map(data.data, function (d) {
                    d.id = d.$idField;
@@ -344,6 +359,7 @@ $("{$this->getElementClassSelector()}").select2({
       return markup;
   }
 });
+
 EOT;
 
         return $this;
@@ -406,17 +422,23 @@ EOT;
                 'text' => $this->label,
             ],
         ], $this->config);
+
         $configs = json_encode($configs);
+
         if (empty($this->script)) {
             $this->script = "$(\"{$this->getElementClassSelector()}\").select2($configs);";
         }
+
         if ($this->options instanceof \Closure) {
             if ($this->form) {
                 $this->options = $this->options->bindTo($this->form->model());
             }
+
             $this->options(call_user_func($this->options, $this->value, $this));
         }
+
         $this->options = array_filter($this->options, 'strlen');
+
         $this->addVariables([
             'options' => $this->options,
             'groups'  => $this->groups,
