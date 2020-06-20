@@ -18,7 +18,8 @@ $('body').on('dblclick', 'table#{$this->tableID}>tbody>tr', function(e) {
     var url = "{$this->resource()}/"+$(this).data('key')+"/edit";
     $.admin.redirect(url);
 });
-SCRIPT);
+SCRIPT
+    );
 
         return $this;
     }
