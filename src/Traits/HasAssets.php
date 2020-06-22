@@ -357,7 +357,7 @@ trait HasAssets
             }
 
             if ($child instanceof \DOMElement && $child->tagName == 'script') {
-                static::script(';(function () {' . $child->nodeValue . '})();');
+                static::script(';(function () {'.$child->nodeValue.'})();');
                 continue;
             }
 
