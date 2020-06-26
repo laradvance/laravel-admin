@@ -502,7 +502,7 @@ class Column
      */
     public function totalMin($display = null)
     {
-         $this->grid->addTotalRow($this->name, $display, 'min');
+        $this->grid->addTotalRow($this->name, $display, 'min');
 
         return $this;
     }
@@ -516,7 +516,7 @@ class Column
      */
     public function totalMax($display = null)
     {
-         $this->grid->addTotalRow($this->name, $display, 'max');
+        $this->grid->addTotalRow($this->name, $display, 'max');
 
         return $this;
     }

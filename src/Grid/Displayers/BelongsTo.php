@@ -36,7 +36,7 @@ class BelongsTo extends AbstractDisplayer
      */
     public function display($selectable = null, $column = '')
     {
-        if (!class_exists($selectable) || !is_subclass_of($selectable, Selectable::class)) {
+        if (! class_exists($selectable) || ! is_subclass_of($selectable, Selectable::class)) {
             throw new \InvalidArgumentException(
                 "[Class [{$selectable}] must be a sub class of Encore\Admin\Grid\Selectable"
             );

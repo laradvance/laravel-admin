@@ -9,7 +9,7 @@ use Encore\Admin\Grid\Model;
 use Illuminate\Support\Arr;
 
 /**
- * Trait ExtendDisplay
+ * Trait ExtendDisplay.
  *
  * @method $this editable()
  * @method $this image($server = '', $width = 200, $height = 200)
@@ -165,7 +165,7 @@ trait ExtendDisplay
 
         if ($input instanceof Closure) {
             return $this->display(function ($value) use ($input, $seperator) {
-                return join($seperator, array_fill(0, (int) $value, $input->call($this, [$value])));
+                return implode($seperator, array_fill(0, (int) $value, $input->call($this, [$value])));
             });
         }
 

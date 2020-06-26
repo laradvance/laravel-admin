@@ -61,7 +61,7 @@ trait HasTotalRow
         $totalRow = new TotalRow($query, $this->totalRowColumns, $this->totalRowOperations);
 
         $totalRow->setGrid($this);
-        
+
         if ($columns) {
             $totalRow->setVisibleColumns($columns);
         }
