@@ -460,21 +460,7 @@ class Column
      */
     public function totalRow($display = null)
     {
-        $this->grid->addTotalRow($this->name, $display);
-
-        return $this;
-    }
-
-    /**
-     * For total-row column used aggregation operation SUM.
-     *
-     * @param null $display
-     *
-     * @return $this
-     */
-    public function totalSum($display = null)
-    {
-        $this->grid->addTotalOperation($this->name, 'sum', $display);
+        $this->grid->addTotalRow($this->name, $display, 'sum');
 
         return $this;
     }
@@ -488,7 +474,7 @@ class Column
      */
     public function totalCount($display = null)
     {
-        $this->grid->addTotalOperation($this->name, 'count', $display);
+        $this->grid->addTotalRow($this->name, $display, 'count');
 
         return $this;
     }
@@ -502,7 +488,7 @@ class Column
      */
     public function totalAvg($display = null)
     {
-        $this->grid->addTotalOperation($this->name, 'avg', $display);
+        $this->grid->addTotalRow($this->name, $display, 'avg');
 
         return $this;
     }
@@ -516,7 +502,7 @@ class Column
      */
     public function totalMin($display = null)
     {
-        $this->grid->addTotalOperation($this->name, 'min', $display);
+         $this->grid->addTotalRow($this->name, $display, 'min');
 
         return $this;
     }
@@ -530,7 +516,7 @@ class Column
      */
     public function totalMax($display = null)
     {
-        $this->grid->addTotalOperation($this->name, 'max', $display);
+         $this->grid->addTotalRow($this->name, $display, 'max');
 
         return $this;
     }
