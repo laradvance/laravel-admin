@@ -56,13 +56,13 @@ class TotalRow extends AbstractTool
      */
     protected function total($column, $display = null, $operation = 'sum')
     {
-        if (! is_callable($display) && ! is_null($display)) {
+        if (! is_null($display) && is_string($display)) {
             return $display;
         }
 
         $sum = $this->query->$operation($operation == 'count' ? '*' : $column);
 
-        if (is_callable($display)) {
+        if (is_callable($display) && ! is_string($display)) {
             return call_user_func($display, $sum);
         }
 
