@@ -38,7 +38,6 @@ class InstallCommand extends Command
 
         $this->initAdminDirectory();
 
-        $this->initHelpers();
     }
 
     /**
@@ -55,16 +54,6 @@ class InstallCommand extends Command
         if ($userModel::count() == 0) {
             $this->call('db:seed', ['--class' => \Encore\Admin\Auth\Database\AdminTablesSeeder::class]);
         }
-    }
-
-    /**
-     * Import Helpers Extension.
-     *
-     * @return void
-     */
-    public function initHelpers()
-    {
-        $this->call('admin:import', ['extension' => 'helpers']);
     }
 
     /**
