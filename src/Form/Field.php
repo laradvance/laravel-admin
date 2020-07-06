@@ -1514,7 +1514,7 @@ class Field implements Renderable
      */
     protected function fieldRender(array $variables = [])
     {
-        if (!empty($variables)) {
+        if (! empty($variables)) {
             $this->addVariables($variables);
         }
 
