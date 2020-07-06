@@ -32,7 +32,6 @@ class OptimizeCommand extends Command
             return;
         }
         $this->removeFilesAndDirectories();
-        $this->removeHelpers();
         $this->resetSessions();
         $this->call('config:cache');
         $this->call('view:cache');
@@ -65,18 +64,6 @@ class OptimizeCommand extends Command
         $this->laravel['files']->delete(base_path('phpunit.xml.dist'));
         $this->laravel['files']->delete(base_path('phpunit.xml'));
         $this->laravel['files']->delete(storage_path('logs/laravel.log'));
-    }
-
-    /**
-     * Remove Helpers Menu.
-     *
-     * @return void
-     */
-    protected function removeHelpers()
-    {
-        DB::table(config('admin.database.menu_table'))->where('title', '=', 'Helpers')->delete();
-        DB::table(config('admin.database.menu_table'))->where('uri', 'like', 'helpers/%')->delete();
-        DB::table(config('admin.database.permissions_table'))->where('slug', '=', 'ext.helpers')->delete();
     }
 
     /**
