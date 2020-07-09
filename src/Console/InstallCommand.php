@@ -37,7 +37,6 @@ class InstallCommand extends Command
         $this->initDatabase();
 
         $this->initAdminDirectory();
-
     }
 
     /**
