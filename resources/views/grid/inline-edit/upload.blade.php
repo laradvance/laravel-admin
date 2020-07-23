@@ -21,7 +21,6 @@ $('input.inline-upload').on('change', function () {
     @else
     formData.append("{{ $name }}", event.target.files[0]);
     @endif
-    formData.append('_token', LA.token);
     formData.append('_method', 'PUT');
 
     $.ajax({
@@ -31,10 +30,9 @@ $('input.inline-upload').on('change', function () {
         contentType: false,
         enctype: 'multipart/form-data',
         data: formData,
-        success: function (data) {
-            toastr.success(data.message);
-            $.admin.reload();
-        }
+    }).done(function (data) {
+        toastr.success(data.message);
+        $.admin.reload();
     });
 });
 </script>

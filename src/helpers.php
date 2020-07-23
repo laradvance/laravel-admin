@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Arr;
+use Encore\Admin\Admin;
 
 if (! function_exists('admin_path')) {
 
@@ -152,7 +154,28 @@ if (! function_exists('admin_asset')) {
     }
 }
 
-if (! function_exists('admin_trans')) {
+if (!function_exists('admin_assets')) {
+
+    /**
+     * @param $path
+     *
+     * @return string
+     */
+    function admin_assets($assets)
+    {
+        foreach (Arr::wrap($assets) as $asset) {
+            if ($css = Arr::get(Admin::$assets, "{$asset}.css")) {
+                Admin::css($css);
+            }
+
+            if ($js = Arr::get(Admin::$assets, "{$asset}.js")) {
+                Admin::js($js);
+            }
+        }
+    }
+}
+
+if (!function_exists('admin_trans')) {
 
     /**
      * Translate the given message.

@@ -44,20 +44,16 @@
         <div id="app">
         @yield('content')
         </div>
-        {!! Admin::script() !!}
         {!! Admin::html() !!}
+        {!! Admin::script() !!}
     </div>
 
     @include('admin::partials.footer')
 
 </div>
 
-<button id="totop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up"></i></button>
-
 <script>
-    function LA() {}
-    LA.token = "{{ csrf_token() }}";
-    LA.user = @json($_user_);
+    var __user = @json($__user);
 </script>
 
 <!-- REQUIRED JS SCRIPTS -->

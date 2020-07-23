@@ -12,31 +12,18 @@ $(document).off('click', '.ie-content .ie-submit').on('click', '.ie-content .ie-
     var original = $trigger.data('original');
 
     if (val == original) {
-        $('[data-toggle="popover"]').popover('hide');
+        $('[data-editinline="popover"]').popover('hide');
         return;
     }
 
     var data = {
-        _token: LA.token,
-        _method: 'PUT',
         _edit_inline: true,
     };
     data[$trigger.data('name')] = val;
 
-    $.ajax({
+    $.put({
         url: "{{ $resource }}/" + $trigger.data('key'),
-        type: "POST",
         data: data,
-        success: function (data) {
-            toastr.success(data.message);
-
-            {{ $slot }}
-
-            $trigger.data('value', val)
-                .data('original', val);
-
-            $('[data-toggle="popover"]').popover('hide');
-        },
         statusCode: {
             422: function(xhr) {
                 $popover.find('.error').empty();
@@ -46,5 +33,14 @@ $(document).off('click', '.ie-content .ie-submit').on('click', '.ie-content .ie-
                 }
             }
         }
+    }).done(function (data) {
+        toastr.success(data.message);
+
+        {{ $slot }}
+
+        $trigger.data('value', val)
+        .data('original', val);
+
+        $('[data-editinline="popover"]').popover('hide');
     });
 });

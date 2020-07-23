@@ -15,7 +15,7 @@
         }
     </style>
 
-    <script>
+    <script require="datetimepicker">
         @component('admin::grid.inline-edit.partials.popover', compact('trigger'))
             @slot('content')
             $template.find('input').attr('value', $trigger.data('value'));
@@ -44,5 +44,3 @@
     </script>
 
 @endsection
-
-

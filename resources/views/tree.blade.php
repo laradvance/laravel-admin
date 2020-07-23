@@ -44,3 +44,72 @@
     </div>
     <!-- /.box-body -->
 </div>
+
+
+<script require="nsetable">
+    $('#{{ $id }}').nestable(@json($options));
+
+    $('.tree_branch_delete').click(function() {
+        var id = $(this).data('id');
+        swal({
+            title: "{{ admin_trans('admin.delete_confirm') }}",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "{{ admin_trans('admin.confirm') }}",
+            showLoaderOnConfirm: true,
+            cancelButtonText: "{{ admin_trans('admin.cancel') }}",
+            preConfirm: function() {
+                return new Promise(function(resolve) {
+                    $.ajax({
+                        method: 'POST',
+                        url: '{{ $url }}/' + id,
+                        data: {
+                            _method:'delete',
+                        }
+                    }).done(function (data) {
+                        $.pjax.reload('#pjax-container');
+                        toastr.success('{{ admin_trans('admin.delete_succeeded') }}');
+                        resolve(data);
+                    });
+                });
+            }
+        }).then(function(result) {
+            var data = result.value;
+            if (typeof data === 'object') {
+                if (data.status) {
+                    swal(data.message, '', 'success');
+                } else {
+                    swal(data.message, '', 'error');
+                }
+            }
+        });
+    });
+
+    $('.{{ $id }}-save').click(function () {
+        var serialize = $('#{{ $id }}').nestable('serialize');
+
+        $.post('{{ $url }}', {
+                _order: JSON.stringify(serialize)
+            },
+            function(data){
+                $.pjax.reload('#pjax-container');
+                toastr.success('{{ admin_trans('admin.save_succeeded') }}');
+            });
+    });
+
+    $('.{{ $id }}-refresh').click(function () {
+        $.pjax.reload('#pjax-container');
+        toastr.success('{{ admin_trans('admin.refresh_succeeded') }}');
+    });
+
+    $('.{{ $id }}-tree-tools').on('click', function(e){
+        var action = $(this).data('action');
+        if (action === 'expand') {
+            $('.dd').nestable('expandAll');
+        }
+        if (action === 'collapse') {
+            $('.dd').nestable('collapseAll');
+        }
+    });
+</script>

@@ -7,14 +7,6 @@ use Illuminate\Support\Arr;
 
 class SwitchField extends Field
 {
-    protected static $css = [
-        '/vendor/laravel-admin/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
-    ];
-
-    protected static $js = [
-        '/vendor/laravel-admin/bootstrap-switch/dist/js/bootstrap-switch.min.js',
-    ];
-
     protected $states = [
         'on'  => ['value' => 1, 'text' => 'ON', 'color' => 'primary'],
         'off' => ['value' => 0, 'text' => 'OFF', 'color' => 'default'],
@@ -60,20 +52,10 @@ class SwitchField extends Field
             }
         }
 
-        $this->script = <<<EOT
-
-$('{$this->getElementClassSelector()}.la_checkbox').bootstrapSwitch({
-    size:'{$this->size}',
-    onText: '{$this->states['on']['text']}',
-    offText: '{$this->states['off']['text']}',
-    onColor: '{$this->states['on']['color']}',
-    offColor: '{$this->states['off']['color']}',
-    onSwitchChange: function(event, state) {
-        $(event.target).closest('.bootstrap-switch').next().val(state ? 'on' : 'off').change();
-    }
-});
-
-EOT;
+        $this->addVariables([
+            'states' => $this->states,
+            'size'   => $this->size,
+        ]);
 
         return parent::render();
     }

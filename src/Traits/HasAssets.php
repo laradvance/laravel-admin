@@ -2,6 +2,8 @@
 
 namespace Encore\Admin\Traits;
 
+use Illuminate\Support\Arr;
+
 trait HasAssets
 {
     /**
@@ -28,6 +30,19 @@ trait HasAssets
      * @var array
      */
     public static $js = [];
+
+    /**
+     * @var array
+     */
+    public static $pjaxJs = [];
+
+    /**
+     * @var array
+     */
+    protected static $deferredAssets = [
+        'js' => [],
+        'css' => [],
+    ];
 
     /**
      * @var array
@@ -65,9 +80,7 @@ trait HasAssets
         'vendor/laravel-admin/laravel-admin/laravel-admin.css',
         'vendor/laravel-admin/nprogress/nprogress.min.css',
         'vendor/laravel-admin/sweetalert2/dist/sweetalert2.min.css',
-        'vendor/laravel-admin/nestable/nestable.min.css',
         'vendor/laravel-admin/toastr/build/toastr.min.css',
-        'vendor/laravel-admin/bootstrap3-editable/css/bootstrap-editable.min.css',
         'vendor/laravel-admin/google-fonts/fonts.min.css',
         'vendor/laravel-admin/AdminLTE/dist/css/AdminLTE.min.css',
         'vendor/laravel-admin/flags/languages.min.css',
@@ -78,15 +91,87 @@ trait HasAssets
      */
     public static $baseJs = [
         'vendor/laravel-admin/AdminLTE/bootstrap/js/bootstrap.min.js',
-        'vendor/laravel-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js',
         'vendor/laravel-admin/AdminLTE/dist/js/app.min.js',
         'vendor/laravel-admin/jquery-pjax/jquery.pjax.min.js',
         'vendor/laravel-admin/nprogress/nprogress.min.js',
-        'vendor/laravel-admin/nestable/jquery.nestable.min.js',
         'vendor/laravel-admin/toastr/build/toastr.min.js',
-        'vendor/laravel-admin/bootstrap3-editable/js/bootstrap-editable.min.js',
         'vendor/laravel-admin/sweetalert2/dist/sweetalert2.min.js',
         'vendor/laravel-admin/laravel-admin/laravel-admin.js',
+    ];
+
+    /**
+     * @var array
+     */
+    public static $assets = [
+        'nsetable'       => [
+            'css' => ['/vendor/laravel-admin/nestable/nestable.css'],
+            'js'  => ['/vendor/laravel-admin/nestable/jquery.nestable.js'],
+        ],
+        'iconpicker'     => [
+            'css' => ['/vendor/laravel-admin/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css',],
+            'js'  => ['/vendor/laravel-admin/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js',],
+        ],
+        'colorpicker'    => [
+            'css' => ['/vendor/laravel-admin/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.css',],
+            'js'  => ['/vendor/laravel-admin/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.js',],
+        ],
+        'icheck'         => [
+            'css' => ['/vendor/laravel-admin/AdminLTE/plugins/iCheck/minimal/blue.css'],
+            'js'  => ['/vendor/laravel-admin/AdminLTE/plugins/iCheck/icheck.min.js',],
+        ],
+        'fileinput'      => [
+            'css' => ['/vendor/laravel-admin/bootstrap-fileinput/css/fileinput.min.css?v=4.5.2',],
+            'js'  => [
+                '/vendor/laravel-admin/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js',
+                '/vendor/laravel-admin/bootstrap-fileinput/js/fileinput.min.js?v=4.5.2',
+                '/vendor/laravel-admin/bootstrap-fileinput/js/plugins/sortable.min.js?v=4.5.2',
+            ],
+        ],
+        'datetimepicker' => [
+            'css' => ['/vendor/laravel-admin/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',],
+            'js'  => [
+                '/vendor/laravel-admin/moment/min/moment-with-locales.min.js',
+                '/vendor/laravel-admin/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+            ],
+        ],
+        'select2'        => [
+            'css' => ['/vendor/laravel-admin/AdminLTE/plugins/select2/select2.min.css',],
+            'js'  => ['/vendor/laravel-admin/AdminLTE/plugins/select2/select2.full.min.js',],
+        ],
+
+        'bootstrapNumber' => [
+            'js' => ['/vendor/laravel-admin/number-input/bootstrap-number-input.js',]
+        ],
+
+        'bootstrapSwitch' => [
+            'css' => ['/vendor/laravel-admin/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',],
+            'js'  => ['/vendor/laravel-admin/bootstrap-switch/dist/js/bootstrap-switch.min.js',]
+        ],
+        'inputmask'       => [
+            'js' => ['/vendor/laravel-admin/AdminLTE/plugins/input-mask/jquery.inputmask.bundle.min.js',]
+        ],
+        'ckeditor'        => [
+            'js' => ['//cdn.ckeditor.com/4.5.10/standard/ckeditor.js',]
+        ],
+        'duallistbox'     => [
+            'css' => ['/vendor/laravel-admin/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css',],
+            'js'  => ['/vendor/laravel-admin/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js',]
+        ],
+        'rangeSlider'     => [
+            'js'  => [
+                '/vendor/laravel-admin/AdminLTE/plugins/ionslider/ion.rangeSlider.min.js',
+            ],
+            'css' => [
+                '/vendor/laravel-admin/AdminLTE/plugins/ionslider/ion.rangeSlider.min.css',
+            ],
+        ],
+        'editable'        => [
+            'js'  => ['/vendor/laravel-admin/bootstrap3-editable/js/bootstrap-editable.min.js'],
+            'css' => ['/vendor/laravel-admin/bootstrap3-editable/css/bootstrap-editable.css'],
+        ],
+        'slimscroll'      => [
+            'js' => ['/vendor/laravel-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js',]
+        ]
     ];
 
     /**
@@ -116,7 +201,11 @@ trait HasAssets
     {
         static::ignoreMinify($css, $minify);
 
-        if (! is_null($css)) {
+        if (!is_null($css)) {
+            if (static::$booted) {
+                return self::$deferredAssets['css'] = array_merge(self::$deferredAssets['css'], (array) $css);
+            }
+
             return self::$css = array_merge(self::$css, (array) $css);
         }
 
@@ -162,7 +251,11 @@ trait HasAssets
     {
         static::ignoreMinify($js, $minify);
 
-        if (! is_null($js)) {
+        if (!is_null($js)) {
+            if (static::$booted) {
+                return self::$deferredAssets['js'] = array_merge(self::$deferredAssets['js'], (array) $js);
+            }
+
             return self::$js = array_merge(self::$js, (array) $js);
         }
 
@@ -241,13 +334,15 @@ trait HasAssets
             ->map(function ($line) {
                 return $line;
                 //@see https://stackoverflow.com/questions/19509863/how-to-remove-js-comments-using-php
-                $pattern = '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/';
-                $line = preg_replace($pattern, '', $line);
+                $line = preg_replace('/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/', '', $line);
 
-                return preg_replace('/\s+/', ' ', $line);
+                return preg_replace(['/\s*([,;\[\]\{\}\=\+\-])\s*/', '/\s+/'], ['\1', ' '], $line);
             });
 
-        return view('admin::partials.script', compact('script'));
+        $js = collect(static::$deferredAssets['js'])->map('admin_asset')->unique()->values();
+        $css = collect(static::$deferredAssets['css'])->map('admin_asset')->unique()->values();
+
+        return view('admin::partials.script', compact('script', 'js', 'css'));
     }
 
     /**
@@ -328,6 +423,27 @@ trait HasAssets
     }
 
     /**
+     * @param $name
+     * @return string
+     */
+    public static function renderAssets($name)
+    {
+        $html = '';
+
+        foreach (Arr::get(static::$assets, "{$name}.js", []) as $js) {
+            $js = admin_asset($js);
+            $html .= "<script src=\"{$js}\"></script>";
+        }
+
+        foreach (Arr::get(static::$assets, "{$name}.css", []) as $css) {
+            $css = admin_asset($css);
+            $html .= "<link rel=\"stylesheet\" href=\"{$css}\">";
+        }
+
+        return $html;
+    }
+
+    /**
      * @return string
      */
     public function jQuery()
@@ -346,70 +462,8 @@ trait HasAssets
     /**
      * @param $component
      */
-    public static function component($component, $data = [])
+    public static function assets(string $name, array $assets)
     {
-        $string = view($component, $data)->render();
-
-        $dom = new \DOMDocument();
-
-        libxml_use_internal_errors(true);
-        $dom->loadHTML('<?xml encoding="utf-8" ?>'.$string);
-        libxml_use_internal_errors(false);
-
-        if ($head = $dom->getElementsByTagName('head')->item(0)) {
-            foreach ($head->childNodes as $child) {
-                if ($child instanceof \DOMElement) {
-                    if ($child->tagName == 'style' && ! empty($child->nodeValue)) {
-                        static::style($child->nodeValue);
-                        continue;
-                    }
-
-                    if ($child->tagName == 'link' && $child->hasAttribute('href')) {
-                        static::css($child->getAttribute('href'));
-                    }
-
-                    if ($child->tagName == 'script') {
-                        if ($child->hasAttribute('src')) {
-                            static::js($child->getAttribute('src'));
-                        } else {
-                            static::script(';(function () {'.$child->nodeValue.'})();');
-                        }
-
-                        continue;
-                    }
-                }
-            }
-        }
-
-        $render = '';
-
-        if ($body = $dom->getElementsByTagName('body')->item(0)) {
-            foreach ($body->childNodes as $child) {
-                if ($child instanceof \DOMElement) {
-                    if ($child->tagName == 'style' && ! empty($child->nodeValue)) {
-                        static::style($child->nodeValue);
-                        continue;
-                    }
-
-                    if ($child->tagName == 'script' && ! empty($child->nodeValue)) {
-                        static::script(';(function () {'.$child->nodeValue.'})();');
-                        continue;
-                    }
-
-                    if ($child->tagName == 'template') {
-                        $html = '';
-                        foreach ($child->childNodes as $childNode) {
-                            $html .= $child->ownerDocument->saveHTML($childNode);
-                        }
-                        $html && static::html($html);
-                        continue;
-                    }
-                }
-
-                $render .= $body->ownerDocument->saveHTML($child);
-            }
-        }
-
-        return trim($render);
+        static::$assets[$name] = $assets;
     }
 }

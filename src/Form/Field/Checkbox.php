@@ -10,14 +10,6 @@ class Checkbox extends MultipleSelect
 
     protected $canCheckAll = false;
 
-    protected static $css = [
-        '/vendor/laravel-admin/AdminLTE/plugins/iCheck/all.min.css',
-    ];
-
-    protected static $js = [
-        '/vendor/laravel-admin/AdminLTE/plugins/iCheck/icheck.min.js',
-    ];
-
     /**
      * @var string
      */
@@ -104,29 +96,16 @@ class Checkbox extends MultipleSelect
      */
     public function render()
     {
-        $this->script = "$('{$this->getElementClassSelector()}').iCheck({checkboxClass:'icheckbox_minimal-blue'});";
-
         $this->addVariables([
-            'checked'     => $this->checked,
-            'inline'      => $this->inline,
-            'canCheckAll' => $this->canCheckAll,
+            'checked'       => $this->checked,
+            'inline'        => $this->inline,
+            'canCheckAll'   => $this->canCheckAll,
+            'checkAllClass' => uniqid('check-all-'),
+            'options'       => $this->getOptions(),
         ]);
 
-        if ($this->canCheckAll) {
-            $checkAllClass = uniqid('check-all-');
+        $this->addCascadeScript();
 
-            $this->script .= <<<SCRIPT
-$('.{$checkAllClass}').iCheck({checkboxClass:'icheckbox_minimal-blue'}).on('ifChanged', function () {
-    if (this.checked) {
-        $('{$this->getElementClassSelector()}').iCheck('check');
-    } else {
-        $('{$this->getElementClassSelector()}').iCheck('uncheck');
-    }
-})
-SCRIPT;
-            $this->addVariables(['checkAllClass' => $checkAllClass]);
-        }
-
-        return parent::render();
+        return parent::fieldRender();
     }
 }

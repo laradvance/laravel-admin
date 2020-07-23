@@ -16,20 +16,6 @@ class Select extends Field
     /**
      * @var array
      */
-    protected static $css = [
-        '/vendor/laravel-admin/AdminLTE/plugins/select2/select2.min.css',
-    ];
-
-    /**
-     * @var array
-     */
-    protected static $js = [
-        '/vendor/laravel-admin/AdminLTE/plugins/select2/select2.full.min.js',
-    ];
-
-    /**
-     * @var array
-     */
     protected $groups = [];
 
     /**
@@ -129,7 +115,7 @@ class Select extends Field
 
         $strAllowClear = var_export($allowClear, true);
 
-        $script = <<<EOT
+        $script = <<<SCRIPT
 $(document).off('change', "{$this->getElementClassSelector()}");
 $(document).on('change', "{$this->getElementClassSelector()}", function () {
     var target = $(this).closest('.fields-group').find(".$class");
@@ -151,7 +137,7 @@ $(document).on('change', "{$this->getElementClassSelector()}", function () {
         $(target).trigger('change');
     });
 });
-EOT;
+SCRIPT;
 
         Admin::script($script);
 
@@ -180,7 +166,7 @@ EOT;
 
         $strAllowClear = var_export($allowClear, true);
 
-        $script = <<<EOT
+        $script = <<<SCRIPT
 var fields = '$fieldsStr'.split('.');
 var urls = '$urlsStr'.split('^');
 
@@ -209,7 +195,7 @@ $(document).on('change', "{$this->getElementClassSelector()}", function () {
         promises.push(refreshOptions(urls[index] + "?q="+ _this.value, target));
     });
 });
-EOT;
+SCRIPT;
 
         Admin::script($script);
 
@@ -281,11 +267,11 @@ EOT;
         $configs = json_encode($configs);
         $configs = substr($configs, 1, strlen($configs) - 2);
 
-        $ajaxOptions = json_encode(array_merge($ajaxOptions, $options));
+        $options = json_encode(array_merge($ajaxOptions, $options));
 
-        $this->script = <<<EOT
+        $this->script = <<<SCRIPT
 
-$.ajax($ajaxOptions).done(function(data) {
+$.ajax($options).done(function(data) {
 
   $("{$this->getElementClassSelector()}").each(function(index, element) {
       $(element).select2({
@@ -299,8 +285,7 @@ $.ajax($ajaxOptions).done(function(data) {
       }
   });
 });
-
-EOT;
+SCRIPT;
 
         return $this;
     }
@@ -325,7 +310,7 @@ EOT;
         $configs = json_encode($configs);
         $configs = substr($configs, 1, strlen($configs) - 2);
 
-        $this->script = <<<EOT
+        $this->script = <<<SCRIPT
 
 $("{$this->getElementClassSelector()}").select2({
   ajax: {
@@ -359,8 +344,7 @@ $("{$this->getElementClassSelector()}").select2({
       return markup;
   }
 });
-
-EOT;
+SCRIPT;
 
         return $this;
     }
@@ -389,7 +373,7 @@ EOT;
     {
         //移除特定字段名称,增加MultipleSelect的修订
         //没有特定字段名可以使多个readonly的JS代码片段被Admin::script的array_unique精简代码
-        $script = <<<'EOT'
+        $script = <<<'SCRIPT'
 $("form select").on("select2:opening", function (e) {
     if($(this).attr('readonly') || $(this).is(':hidden')){
     e.preventDefault();
@@ -404,10 +388,25 @@ $(document).ready(function(){
         }
     });
 });
-EOT;
+SCRIPT;
         Admin::script($script);
 
         return parent::readOnly();
+    }
+
+    protected function getOptions()
+    {
+        if ($this->options instanceof \Closure) {
+            if ($this->form) {
+                $this->options = $this->options->bindTo($this->form->model());
+            }
+
+            $this->options(call_user_func($this->options, $this->value, $this));
+        }
+
+        $this->options = array_filter($this->options, 'strlen');
+
+        return $this->options;
     }
 
     /**
@@ -429,18 +428,8 @@ EOT;
             $this->script = "$(\"{$this->getElementClassSelector()}\").select2($configs);";
         }
 
-        if ($this->options instanceof \Closure) {
-            if ($this->form) {
-                $this->options = $this->options->bindTo($this->form->model());
-            }
-
-            $this->options(call_user_func($this->options, $this->value, $this));
-        }
-
-        $this->options = array_filter($this->options, 'strlen');
-
         $this->addVariables([
-            'options' => $this->options,
+            'options' => $this->getOptions(),
             'groups'  => $this->groups,
         ]);
 

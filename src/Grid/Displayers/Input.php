@@ -8,7 +8,11 @@ class Input extends AbstractDisplayer
 {
     public function display($mask = '')
     {
-        return Admin::component('admin::grid.inline-edit.input', [
+        if ($mask) {
+            admin_assets('inputmask');
+        }
+
+        return Admin::view('admin::grid.inline-edit.input', [
             'key'      => $this->getKey(),
             'value'    => $this->getValue(),
             'display'  => $this->getValue(),

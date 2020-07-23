@@ -1,4 +1,3 @@
-
 <tr style="height: 28px;">
     <td><strong><small>{{ $label }}:</small></strong>&nbsp;&nbsp;&nbsp;</td>
     <td><input type="checkbox" class="{{ $class }}" {{ $checked }} data-key="{{ $key }}" /></td>
@@ -24,18 +23,17 @@
                 type: "POST",
                 data: {
                     "{{ $name }}": value,
-                    _token: LA.token,
                     _method: 'PUT'
                 },
-                success: function (data) {
-                    if (data.status)
-                        toastr.success(data.message);
-                    else
-                        toastr.warning(data.message);
-                },
-                complete:function(xhr,status) {
-                    if (status == 'success')
-                        _status = xhr.responseJSON.status;
+            }).done(function (data) {
+                if (data.status) {
+                    toastr.success(data.message);
+                } else {
+                    toastr.warning(data.message);
+                }
+            }).always(function(xhr,status) {
+                if (status == 'success') {
+                    _status = xhr.responseJSON.status;
                 }
             });
 

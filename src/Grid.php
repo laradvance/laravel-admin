@@ -34,7 +34,6 @@ class Grid
         Concerns\CanFixHeader,
         Concerns\CanFixColumns,
         Concerns\CanExportGrid,
-        Concerns\CanDoubleClick,
         ShouldSnakeAttributes,
         Macroable {
             __call as macroCall;
@@ -936,8 +935,8 @@ class Grid
 
         $this->callRenderingCallback();
 
-        return Admin::component($this->view, $this->variables());
+        $this->with(['__table' => "$('#{$this->tableID}')"]);
 
-        return view($this->view, $this->variables());
+        return Admin::view($this->view, $this->variables());
     }
 }

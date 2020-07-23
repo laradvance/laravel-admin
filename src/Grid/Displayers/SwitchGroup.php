@@ -9,6 +9,8 @@ class SwitchGroup extends SwitchDisplay
 {
     public function display($columns = [], $states = [])
     {
+        admin_assets('bootstrapSwitch');
+
         $this->overrideStates($states);
 
         if (! Arr::isAssoc($columns)) {
@@ -28,8 +30,8 @@ class SwitchGroup extends SwitchDisplay
 
     protected function buildSwitch($name, $label = '')
     {
-        return Admin::component('admin::grid.inline-edit.switch-group', [
-            'class'    => 'grid-switch-'.str_replace('.', '-', $name),
+        return Admin::view('admin::grid.inline-edit.switch-group', [
+            'class'    => 'grid-switch-' . str_replace('.', '-', $name),
             'key'      => $this->getKey(),
             'resource' => $this->getResource(),
             'name'     => $this->getPayloadName($name),

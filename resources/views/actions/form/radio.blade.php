@@ -1,3 +1,5 @@
+@admin_assets('icheck')
+
 <div class="form-group">
     <label>{{ $label }}</label>
     <div>

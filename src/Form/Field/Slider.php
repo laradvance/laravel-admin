@@ -6,15 +6,6 @@ use Encore\Admin\Form\Field;
 
 class Slider extends Field
 {
-    protected static $css = [
-        '/vendor/laravel-admin/AdminLTE/plugins/ionslider/ion.rangeSlider.min.css',
-        '/vendor/laravel-admin/AdminLTE/plugins/ionslider/ion.rangeSlider.skinNice.min.css',
-    ];
-
-    protected static $js = [
-        '/vendor/laravel-admin/AdminLTE/plugins/ionslider/ion.rangeSlider.min.js',
-    ];
-
     protected $options = [
         'type'     => 'single',
         'prettify' => false,
@@ -23,9 +14,7 @@ class Slider extends Field
 
     public function render()
     {
-        $option = json_encode($this->options);
-
-        $this->script = "$('{$this->getElementClassSelector()}').ionRangeSlider($option)";
+        $this->addVariables(['options' => $this->options]);
 
         return parent::render();
     }

@@ -55,12 +55,10 @@
             type: "POST",
             data: {
                 '{{ $name }}': selected,
-                _token: LA.token,
                 _method: 'PUT'
             },
-            success: function (data) {
-                callback(data);
-            }
+        }).done(function (data) {
+            callback(data);
         });
     };
 
@@ -162,7 +160,6 @@
         });
     });
 @endif
-
     $modal.on('click', '.page-item a, .filter-box a', function (e) {
         load($(this).attr('href'));
         e.preventDefault();
@@ -173,6 +170,6 @@
         load($(this).attr('action')+'&'+$(this).serialize());
         e.preventDefault();
         return false;
-    })
+    });
 
 </script>

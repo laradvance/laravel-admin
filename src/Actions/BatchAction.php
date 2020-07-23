@@ -19,13 +19,13 @@ abstract class BatchAction extends GridAction
         $warning = __('No data selected!');
 
         return <<<SCRIPT
-        var key = $.admin.grid.selected();
-        
+        var key = \$.admin.table.selected();
+
         if (key.length === 0) {
             $.admin.toastr.warning('{$warning}', '', {positionClass: 'toast-bottom-right'});
             return ;
         }
-        
+
         Object.assign(data, {_key:key});
 SCRIPT;
     }

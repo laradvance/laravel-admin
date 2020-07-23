@@ -2,6 +2,8 @@
 
 namespace Encore\Admin\Widgets;
 
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 
 class Box extends Widget implements Renderable
@@ -60,6 +62,17 @@ class Box extends Widget implements Renderable
     }
 
     /**
+     * @param string $title
+     * @param string $content
+     * @param string $footer
+     * @return static
+     */
+    public static function create($title = '', $content = '', $footer = '')
+    {
+        return new static(...func_get_args());
+    }
+
+    /**
      * Set box content.
      *
      * @param string $content
@@ -70,6 +83,12 @@ class Box extends Widget implements Renderable
     {
         if ($content instanceof Renderable) {
             $this->content = $content->render();
+        } elseif ($content instanceof Htmlable) {
+            $this->content = $content->toHtml();
+        } elseif ($content instanceof Jsonable) {
+            $this->content = '<pre>'.$content->toJson(JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE).'</pre>';
+        } elseif (is_array($content)) {
+            $this->content = '<pre>'.json_encode($content, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE).'</pre>';
         } else {
             $this->content = (string) $content;
         }
@@ -131,6 +150,8 @@ class Box extends Widget implements Renderable
      */
     public function scrollable($options = [], $nodeSelector = '')
     {
+        admin_assets('slimscroll');
+
         $this->id = uniqid('box-slim-scroll-');
         $scrollOptions = json_encode($options);
         $nodeSelector = $nodeSelector ?: '.box-body';

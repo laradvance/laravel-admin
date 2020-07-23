@@ -8,6 +8,8 @@ use Encore\Admin\Form as BaseForm;
 use Encore\Admin\Form\Field;
 use Encore\Admin\Layout\Content;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -408,11 +410,13 @@ class Form implements Renderable
         $this->fields()->each->fill($this->data());
 
         return [
+            'id'         => $this->attributes['id'],
             'fields'     => $this->fields,
             'attributes' => $this->formatAttribute(),
             'method'     => $this->attributes['method'],
             'buttons'    => $this->buttons,
             'width'      => $this->width,
+            'confirm'    => $this->confirm,
         ];
     }
 
@@ -512,70 +516,11 @@ class Form implements Renderable
         return $this;
     }
 
-    protected function addConfirmScript()
-    {
-        $id = $this->attributes['id'];
-
-        $trans = [
-            'cancel' => trans('admin.cancel'),
-            'submit' => trans('admin.submit'),
-        ];
-
-        $settings = [
-            'type'                => 'question',
-            'showCancelButton'    => true,
-            'confirmButtonText'   => $trans['submit'],
-            'cancelButtonText'    => $trans['cancel'],
-            'title'               => $this->confirm,
-            'text'                => '',
-        ];
-
-        $settings = trim(json_encode($settings, JSON_PRETTY_PRINT));
-
-        $script = <<<SCRIPT
-
-$('form#{$id}').off('submit').on('submit', function (e) {
-    e.preventDefault();
-    var form = this;
-    $.admin.swal($settings).then(function (result) {
-        if (result.value == true) {
-            form.submit();
-        }
-    });
-    return false;
-});
-SCRIPT;
-
-        Admin::script($script);
-    }
-
-    protected function addCascadeScript()
-    {
-        $id = $this->attributes['id'];
-
-        $script = <<<SCRIPT
-;(function () {
-    $('form#{$id}').submit(function (e) {
-        e.preventDefault();
-        $(this).find('div.cascade-group.hide :input').attr('disabled', true);
-    });
-})();
-SCRIPT;
-
-        Admin::script($script);
-    }
-
     protected function prepareForm()
     {
         if (method_exists($this, 'form')) {
             $this->form();
         }
-
-        if (! empty($this->confirm)) {
-            $this->addConfirmScript();
-        }
-
-        $this->addCascadeScript();
     }
 
     protected function prepareHandle()
@@ -585,6 +530,27 @@ SCRIPT;
             $this->action(admin_url('_handle_form_'));
             $this->hidden('_form_')->default(get_called_class());
         }
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     */
+    protected function renderResult($value)
+    {
+        $result = $this->result($value);
+
+        if ($result instanceof Htmlable) {
+            $result = $result->toHtml();
+        } elseif ($result instanceof Renderable) {
+            $result = $result->render();
+        } elseif ($result instanceof Jsonable) {
+            $result = $result->toJson();
+        } elseif (is_array($result)) {
+            $result = var_export($result, true);
+        }
+
+        return (string) $result;
     }
 
     /**
@@ -598,13 +564,19 @@ SCRIPT;
 
         $this->prepareHandle();
 
-        $form = view('admin::widgets.form', $this->getVariables())->render();
+        $form = Admin::view('admin::widgets.form', $this->getVariables());
 
         if (! ($title = $this->title()) || ! $this->inbox) {
             return $form;
         }
 
-        return (new Box($title, $form))->render();
+        $result = '';
+
+        if ($value = session()->get('__result')) {
+            $result = $this->renderResult($value);
+        }
+
+        return (new Box($title, $form))->render() . $result;
     }
 
     /**

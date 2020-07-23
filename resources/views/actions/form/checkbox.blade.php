@@ -1,3 +1,5 @@
+@admin_assets('icheck')
+
 <div class="form-group">
     <label>{{ $label }}</label>
     <div>
@@ -12,3 +14,20 @@
     <input type="hidden" name="{{$name}}[]">
     @include('admin::actions.form.help-block')
 </div>
+
+<script require="icheck">
+    var $checkbox = $('{{ $selector }}');
+    $checkbox.iCheck({checkboxClass:'icheckbox_minimal-blue'});
+
+    @if($canCheckAll)
+    $('.{{ $checkAllClass }}').iCheck({
+        checkboxClass:'icheckbox_minimal-blue'
+    }).on('ifChanged', function () {
+        if (this.checked) {
+            $checkbox.iCheck('check');
+        } else {
+            $checkbox.iCheck('uncheck');
+        }
+    });
+    @endif
+</script>

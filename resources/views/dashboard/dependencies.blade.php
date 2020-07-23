@@ -26,6 +26,6 @@
     <!-- /.box-body -->
 </div>
 
-<script>
+<script require="slimscroll">
     $('.dependencies').slimscroll({height:'510px',size:'3px'});
 </script>

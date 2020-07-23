@@ -1,10 +1,8 @@
-{{--inline edit popover--}}
-
 <span class="ie-wrap">
     <a
         href="javascript:void(0);"
         class="{{ $trigger }}"
-        data-toggle="popover"
+        data-editinline="popover"
         data-target="{{ $target }}"
         data-value="{{ $value }}"
         data-original="{{ $value }}"
@@ -39,13 +37,7 @@
         color:#777;
     }
 
-    .ie-wrap>a:hover {
-        text-decoration: none;
-        background-color: #ddd;
-        color:#777;
-    }
-
-    .ie-wrap>a:hover i {
+    .grid-table tr:hover .ie-wrap>a>i {
         visibility: visible !important;
     }
 
@@ -67,14 +59,14 @@
 
 <script>
     $(document).on('click', '.ie-action .ie-cancel', function () {
-        $('[data-toggle="popover"]').popover('hide');
+        $('[data-editinline="popover"]').popover('hide');
     });
 
     $('body').on('click', function (e) {
         if ($(e.target).data('toggle') !== 'popover'
-            && $(e.target).parents('[data-toggle="popover"]').length === 0
+            && $(e.target).parents('[data-editinline="popover"]').length === 0
             && $(e.target).parents('.popover.in').length === 0) {
-            $('[data-toggle="popover"]').popover('hide');
+            $('[data-editinline="popover"]').popover('hide');
         }
     });
 </script>

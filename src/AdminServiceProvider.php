@@ -2,6 +2,7 @@
 
 namespace Encore\Admin;
 
+use Encore\Admin\Http\Middleware;
 use Encore\Admin\Layout\Content;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
@@ -91,6 +92,10 @@ class AdminServiceProvider extends ServiceProvider
         Blade::directive('endbox', function ($expression) {
             return "'); echo \$box->render(); ?>";
         });
+
+        Blade::directive('admin_assets', function ($name) {
+            return "<?php echo \Encore\Admin\Admin::renderAssets({$name}); ?>";
+        });
     }
 
     /**
@@ -148,7 +153,7 @@ class AdminServiceProvider extends ServiceProvider
             });
         });
 
-        Router::macro('component', function ($uri, $component, $data = [], $options = []) {
+        Router::macro('adminView', function ($uri, $component, $data = [], $options = []) {
             return $this->match(['GET', 'HEAD'], $uri, function (Content $layout) use ($component, $data, $options) {
                 return $layout
                     ->title(Arr::get($options, 'title', ' '))

@@ -99,20 +99,24 @@ class Between extends AbstractFilter
      */
     protected function setupDatetime($options = [])
     {
+        admin_assets('datetimepicker');
+
         $options['format'] = Arr::get($options, 'format', 'YYYY-MM-DD HH:mm:ss');
         $options['locale'] = Arr::get($options, 'locale', config('app.locale'));
         $startOptions = json_encode($options);
         $endOptions = json_encode($options + ['useCurrent' => false]);
-        $script = <<<EOT
-            $('#{$this->id['start']}').datetimepicker($startOptions);
-            $('#{$this->id['end']}').datetimepicker($endOptions);
-            $("#{$this->id['start']}").on("dp.change", function (e) {
-                $('#{$this->id['end']}').data("DateTimePicker").minDate(e.date);
-            });
-            $("#{$this->id['end']}").on("dp.change", function (e) {
-                $('#{$this->id['start']}').data("DateTimePicker").maxDate(e.date);
-            });
-EOT;
+
+        $script = <<<SCRIPT
+    $('#{$this->id['start']}').datetimepicker($startOptions);
+    $('#{$this->id['end']}').datetimepicker($endOptions);
+    $("#{$this->id['start']}").on("dp.change", function (e) {
+        $('#{$this->id['end']}').data("DateTimePicker").minDate(e.date);
+    });
+    $("#{$this->id['end']}").on("dp.change", function (e) {
+        $('#{$this->id['start']}').data("DateTimePicker").maxDate(e.date);
+    });
+SCRIPT;
+
         Admin::script($script);
     }
 }
